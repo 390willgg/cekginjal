@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { supabase, getDeviceId } from './supabase'
 
 // ─── types ───────────────────────────────────────────────────────────────────
@@ -813,7 +813,7 @@ function RekoScreen({ provinsi, onProvinsi, onOpenRs, onOpenArticle }: {
   provinsi: string; onProvinsi: (p: string) => void
   onOpenRs: (id: number) => void; onOpenArticle: (id: number) => void
 }) {
-  const [reko] = useState(() => buildReko(provinsi))
+  const reko = useMemo(() => buildReko(provinsi), [provinsi])
   const mono = "'IBM Plex Mono',monospace"
   const chip = (active: boolean): React.CSSProperties => ({
     padding: '9px 14px', borderRadius: 99, border: `1.5px solid ${active ? '#0F766E' : '#DCE6E2'}`,
