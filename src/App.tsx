@@ -167,8 +167,12 @@ function derive(d: FormData) {
   // Blood pressure
   const sys = parseFloat(d.sys), dia = parseFloat(d.dia); let bpCat = '–', bpColor = '#9AABA5'
   if (sys > 0 || dia > 0) {
-    if (sys >= 140 || dia >= 90) { bpCat = 'Hipertensi'; bpColor = '#C5453B' }
-    else if (sys >= 120 || dia >= 80) { bpCat = 'Pra-hipertensi'; bpColor = '#C77A0A' }
+    if (sys > 180 || dia > 120) { bpCat = 'Krisis Hipertensi'; bpColor = '#C5453B' }
+    else if (sys >= 140 || dia >= 90) { bpCat = 'Hipertensi Tingkat 2'; bpColor = '#C5453B' }
+    else if (sys >= 130 || dia >= 80) { bpCat = 'Hipertensi Tingkat 1'; bpColor = '#C77A0A' }
+    else if (sys >= 120 && dia < 80) { bpCat = 'Prahipertensi'; bpColor = '#C77A0A' }
+    else if (sys < 120 && dia < 80) { bpCat = 'Normal'; bpColor = '#1A8754' }
+    else if (sys < 90 || dia < 60) { bpCat = 'Hipotensi'; bpColor = '#9AABA5' }
     else { bpCat = 'Normal'; bpColor = '#1A8754' }
   }
   const bv = validity(d.bpDate)
@@ -186,8 +190,8 @@ function derive(d: FormData) {
   if (d.hipertensi) f.push({ label: 'Riwayat Hipertensi', pts: 18 })
   if (gdCat === 'Tinggi') f.push({ label: 'Gula darah tinggi', pts: 14 })
   else if (gdCat === 'Pra-diabetes' || gdCat === 'Waspada') f.push({ label: 'Gula darah di atas normal', pts: 7 })
-  if (bpCat === 'Hipertensi') f.push({ label: 'Tekanan darah tinggi', pts: 14 })
-  else if (bpCat === 'Pra-hipertensi') f.push({ label: 'Tekanan darah meningkat', pts: 7 })
+  if (bpCat === 'Krisis Hipertensi' || bpCat === 'Hipertensi Tingkat 2') f.push({ label: 'Tekanan darah tinggi', pts: 14 })
+  else if (bpCat === 'Hipertensi Tingkat 1' || bpCat === 'Prahipertensi') f.push({ label: 'Tekanan darah meningkat', pts: 7 })
   if (d.keluarga) f.push({ label: 'Riwayat keluarga penyakit ginjal', pts: 10 })
   if (d.jantung) f.push({ label: 'Riwayat penyakit jantung', pts: 8 })
   if (d.aktivitas === 'rendah') f.push({ label: 'Aktivitas fisik rendah', pts: 8 })
