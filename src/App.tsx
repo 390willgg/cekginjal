@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from 'react'
 import { supabase, getDeviceId } from './supabase'
+import kidneyLogo from './assets/kidney-logo.svg'
 
 // ─── types ───────────────────────────────────────────────────────────────────
 
@@ -294,7 +295,7 @@ function TopBar({ onHome, onReko, onHistory }: { onHome: () => void; onReko: () 
       <div style={{ maxWidth: 760, margin: '0 auto', padding: '13px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
         <div onClick={onHome} style={{ display: 'flex', alignItems: 'center', gap: 11, cursor: 'pointer' }}>
           <div style={{ width: 36, height: 36, borderRadius: 11, background: '#0F766E', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(15,118,110,0.28)' }}>
-            <div style={{ width: 13, height: 18, background: '#fff', borderRadius: '50% 50% 50% 50% / 38% 38% 62% 62%' }} />
+            <img src={kidneyLogo} alt="" style={{ width: 22, height: 22 }} />
           </div>
           <div style={{ lineHeight: 1.1 }}>
             <div style={{ fontSize: 16, fontWeight: 800, letterSpacing: '-0.01em' }}>CekGinjal</div>
