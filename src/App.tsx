@@ -3,7 +3,7 @@ import { SHEETS_URL } from './config'
 
 // ─── types ───────────────────────────────────────────────────────────────────
 
-type Screen = 'landing' | 'form' | 'result' | 'history'
+type Screen = 'landing' | 'form' | 'result' | 'history' | 'reko'
 type Gender = 'L' | 'P' | ''
 type GdType = 'puasa' | 'sewaktu'
 type DmType = 'tipe1' | 'tipe2'
@@ -59,6 +59,68 @@ function blank(): FormData {
 function fmtDate(d: Date) {
   const m = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des']
   return `${d.getDate()} ${m[d.getMonth()]} ${d.getFullYear()}`
+}
+
+// ─── reko (faskes) data ─────────────────────────────────────────────────────
+
+const PROVINCES = ['Aceh','Sumatera Utara','Sumatera Barat','Riau','Kepulauan Riau','Jambi','Sumatera Selatan','Kepulauan Bangka Belitung','Bengkulu','Lampung','DKI Jakarta','Jawa Barat','Jawa Tengah','DI Yogyakarta','Jawa Timur','Banten','Bali','Nusa Tenggara Barat','Nusa Tenggara Timur','Kalimantan Barat','Kalimantan Tengah','Kalimantan Selatan','Kalimantan Timur','Kalimantan Utara','Sulawesi Utara','Sulawesi Tengah','Sulawesi Selatan','Sulawesi Tenggara','Gorontalo','Sulawesi Barat','Maluku','Maluku Utara','Papua','Papua Barat','Papua Selatan','Papua Tengah','Papua Pegunungan','Papua Barat Daya']
+
+interface RsItem {
+  id: number; provinsi: string; nama: string; paket: string
+  alamat: string; kontak: string; jam: string; promo: string
+}
+
+const RS_DATA: RsItem[] = [
+  { id: 1, provinsi: 'Sumatera Utara', nama: 'RSUP H. Adam Malik', paket: 'Paket Adam Malik Basic 3 (termasuk Ureum & Kreatinin)', alamat: 'Jl. Bunga Lau No.17, Kemenangan Tani, Kec. Medan Tuntungan, Kota Medan', kontak: 'WA Eksekutif 0822-6705-5677', jam: 'Senin–Jumat 08.00–15.00 WIB', promo: 'Juli (HUT RS) & November (Hari Kesehatan Nasional)' },
+  { id: 2, provinsi: 'Sumatera Selatan', nama: 'RSUP dr. Mohammad Hoesin (RSMH)', paket: 'Paket MCU Skrining Metabolik & Fungsi Organ', alamat: 'Jl. Jenderal Sudirman Km.3.5, Sekip Jaya, Kec. Kemuning, Kota Palembang', kontak: 'Call Center 0711-354088', jam: 'Senin–Jumat 07.30–14.30 WIB', promo: 'Januari (3 Jan, HUT RSMH) & November' },
+  { id: 3, provinsi: 'DKI Jakarta', nama: 'RSUP Nasional Dr. Cipto Mangunkusumo (RSCM)', paket: 'Paket MCU Ginjal-Hipertensi Klinis', alamat: 'Jl. Pangeran Diponegoro No.71, Kenari, Kec. Senen, Jakarta Pusat', kontak: 'Call Center 1500135', jam: 'Senin–Sabtu 07.30–15.00 WIB', promo: 'November (19 Nov HUT RSCM & Hari Kesehatan Nasional)' },
+  { id: 4, provinsi: 'Jawa Barat', nama: 'RSUP Dr. Hasan Sadikin (RSHS)', paket: 'Paket MCU Rutin & Penanda Gagal Ginjal', alamat: 'Jl. Pasteur No.38, Pasteur, Kec. Sukajadi, Kota Bandung', kontak: 'Hotline MCU 022-2551111', jam: 'Senin–Jumat 07.30–14.00 WIB', promo: 'Oktober (HUT RSHS) & November' },
+  { id: 5, provinsi: 'DI Yogyakarta', nama: 'RSUP Dr. Sardjito', paket: 'Paket Diabetes & Pencegahan Nefropati', alamat: 'Jl. Kesehatan No.1, Sinduadi, Kec. Mlati, Kabupaten Sleman', kontak: 'Hotline MCU 0274-587333', jam: 'Senin–Sabtu 07.30–13.00 WIB', promo: 'Februari (HUT RS) & November' },
+  { id: 6, provinsi: 'Jawa Timur', nama: 'RSUD Dr. Soetomo', paket: 'Paket Skrining Uronefrologi Dasar', alamat: 'Jl. Mayjen Prof. Dr. Moestopo No.6-8, Airlangga, Kec. Gubeng, Kota Surabaya', kontak: 'Hotline 031-5501078', jam: 'Senin–Jumat 07.30–14.30 WIB', promo: 'Oktober (HUT RS) & November' },
+  { id: 7, provinsi: 'Bali', nama: 'RSUP Prof. Dr. I.G.N.G. Ngoerah', paket: 'Paket MCU Eksekutif Organ Dalam', alamat: 'Jl. Diponegoro, Dauh Puri Klod, Kec. Denpasar Barat, Kota Denpasar, Bali 80113', kontak: '(0361) 227911 / 0851-0640-5474 (Unit MCU)', jam: 'Senin–Kamis 07.30–16.00 WITA, Jumat 07.30–15.30 WITA', promo: 'Desember (HUT RS) & November (Hari Kesehatan Nasional)' },
+  { id: 8, provinsi: 'Sulawesi Selatan', nama: 'RSUP Dr. Wahidin Sudirohusodo', paket: 'Paket MCU Panel Ginjal-Metabolik', alamat: 'Jl. Perintis Kemerdekaan Km.11, Tamalanrea Jaya, Kec. Tamalanrea, Kota Makassar, Sulawesi Selatan 90245', kontak: '(0411) 583333 / 0811-4100-7772 (Poliklinik Eksekutif)', jam: 'Senin–Jumat 07.30–15.00 WITA', promo: 'Maret (HUT RS) & November (Hari Kesehatan Nasional)' },
+]
+
+interface ArticleItem {
+  id: number; topik: string; judul: string; ringkasan: string; isi: string
+}
+
+const ARTICLES_DATA: ArticleItem[] = [
+  { id: 1, topik: 'Tanda & Gejala', judul: 'Kenali 5 Tanda Awal Penyakit Ginjal Kronis', ringkasan: 'Gejala awal CKD sering tidak disadari; kenali tanda-tandanya sejak dini.',
+    isi: 'Penyakit ginjal kronis (CKD) sering disebut "silent disease" karena gejalanya baru terasa setelah fungsi ginjal menurun cukup jauh. Berikut 5 tanda awal yang perlu diwaspadai:\n\n1. Mudah lelah dan lemas — penumpukan racun dalam darah membuat tubuh cepat capai walau aktivitas ringan.\n2. Bengkak di kaki, pergelangan kaki, atau wajah — ginjal yang melemah kesulitan membuang kelebihan cairan.\n3. Perubahan pola buang air kecil — lebih sering di malam hari, urin berbusa, atau berwarna lebih gelap.\n4. Tekanan darah sulit terkontrol — ginjal berperan mengatur tekanan darah; hipertensi yang memburuk bisa jadi tanda gangguan ginjal.\n5. Nafsu makan menurun dan mual — muncul saat racun mulai menumpuk dalam tubuh.\n\nJika mengalami dua atau lebih tanda ini, terutama disertai riwayat diabetes atau hipertensi, segera lakukan skrining fungsi ginjal (cek kreatinin/eGFR dan urinalisis) di puskesmas atau rumah sakit terdekat. Deteksi dini memungkinkan penanganan lebih awal sebelum kerusakan ginjal menjadi permanen.' },
+  { id: 2, topik: 'Diabetes & Ginjal', judul: 'Pentingnya Skrining Ginjal Rutin bagi Penderita Diabetes', ringkasan: 'Pasien diabetes disarankan cek fungsi ginjal setiap 6 bulan.',
+    isi: 'Diabetes melitus adalah salah satu penyebab utama penyakit ginjal kronis di dunia, termasuk Indonesia. Kadar gula darah yang tinggi dalam jangka panjang merusak pembuluh darah kecil di ginjal yang berfungsi menyaring darah, kondisi ini disebut nefropati diabetik.\n\nKerusakan ini biasanya berkembang perlahan selama bertahun-tahun tanpa gejala jelas. Karena itu, penderita diabetes — baik tipe 1 maupun tipe 2 — sangat dianjurkan melakukan skrining fungsi ginjal secara rutin, minimal setiap 6 bulan, berupa:\n\n• Pemeriksaan eGFR (estimasi laju filtrasi glomerulus) melalui tes darah kreatinin.\n• Pemeriksaan albumin dalam urin (mikroalbuminuria) untuk mendeteksi kebocoran protein sedini mungkin.\n\nPengendalian gula darah yang baik, tekanan darah terkontrol, serta pola makan rendah garam dan gula dapat memperlambat atau bahkan mencegah kerusakan ginjal lebih lanjut. Jangan menunggu gejala muncul — skrining rutin adalah kunci mendeteksi masalah ginjal sebelum terlambat.' },
+  { id: 3, topik: 'Hipertensi & Ginjal', judul: 'Waspada Hipertensi, Musuh Utama Kesehatan Ginjal', ringkasan: 'Hipertensi tak terkendali menjadi salah satu penyebab CKD paling umum.',
+    isi: 'Hipertensi yang tidak terkontrol adalah salah satu penyebab paling umum penyakit ginjal kronis. Tekanan darah tinggi yang berlangsung lama merusak pembuluh darah kecil di ginjal, mengurangi kemampuannya menyaring limbah dari darah.\n\nYang membuat kondisi ini berbahaya adalah hipertensi sering tidak bergejala, sehingga banyak orang tidak menyadari tekanan darahnya sudah tinggi selama bertahun-tahun. Akibatnya, kerusakan ginjal baru terdeteksi ketika sudah pada tahap lanjut.\n\nLangkah pencegahan: periksa tekanan darah secara rutin minimal setahun sekali, batasi konsumsi garam kurang dari satu sendok teh per hari, jaga berat badan ideal, dan aktif bergerak. Bagi yang sudah didiagnosis hipertensi, kepatuhan minum obat dan kontrol rutin sangat penting untuk melindungi fungsi ginjal jangka panjang.' },
+  { id: 4, topik: 'Pola Makan', judul: 'Cegah Kerusakan Ginjal dengan Mengurangi Konsumsi Garam', ringkasan: 'Konsumsi garam berlebih meningkatkan risiko kerusakan ginjal permanen.',
+    isi: 'Konsumsi garam berlebihan adalah salah satu kebiasaan makan yang paling berisiko bagi kesehatan ginjal. Garam berlebih meningkatkan tekanan darah dan memaksa ginjal bekerja lebih keras membuang kelebihan natrium, yang lama-kelamaan dapat menyebabkan kerusakan permanen.\n\nAnjuran konsumsi garam harian menurut pedoman kesehatan adalah tidak lebih dari satu sendok teh (sekitar 5 gram) per hari. Namun makanan olahan, mi instan, camilan kemasan, dan makanan cepat saji seringkali mengandung natrium jauh melebihi angka tersebut.\n\nBeberapa langkah sederhana yang bisa diterapkan: mengurangi penambahan garam saat memasak, membatasi makanan olahan/kalengan, membaca label kandungan natrium pada kemasan, serta memperbanyak konsumsi makanan segar seperti sayur dan buah. Kebiasaan kecil ini, bila dilakukan konsisten, terbukti membantu menjaga tekanan darah dan kesehatan ginjal dalam jangka panjang.' },
+  { id: 5, topik: 'Deteksi Dini', judul: 'Kenapa Skrining Dini Ginjal Sangat Penting', ringkasan: 'Deteksi dini membuka peluang mencegah perburukan menjadi gagal ginjal.',
+    isi: 'Skrining dini memungkinkan tenaga kesehatan mendeteksi penurunan fungsi ginjal pada tahap awal, ketika perubahan pola makan, pengobatan hipertensi/diabetes, dan gaya hidup masih dapat memperlambat atau menghentikan perburukan fungsi ginjal, sebelum pasien harus bergantung pada cuci darah (hemodialisis) seumur hidup.\n\nKelompok yang paling dianjurkan melakukan skrining rutin: usia di atas 45 tahun, penderita diabetes atau hipertensi, obesitas, perokok, serta yang memiliki riwayat keluarga dengan penyakit ginjal.\n\nSemakin dini penurunan fungsi ginjal terdeteksi, semakin besar peluang menjaga fungsi ginjal tetap optimal dan menghindari komplikasi jangka panjang.' },
+]
+
+function shuffleArr<T>(arr: T[]): T[] {
+  const a = [...arr]
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[a[i], a[j]] = [a[j], a[i]]
+  }
+  return a
+}
+
+function buildReko(provinsi: string) {
+  const articlePool = provinsi ? ARTICLES_DATA : shuffleArr(ARTICLES_DATA)
+  const rekoSubtitle = provinsi
+    ? `Cari Puskesmas/FKTP terdekat atau paket MCU ginjal bersubsidi sesuai domisili Anda (${provinsi}) di bawah ini.`
+    : 'Pilih provinsi Anda untuk melihat rekomendasi paket MCU ginjal yang sesuai domisili.'
+  let rsList: RsItem[]
+  if (provinsi) {
+    const match = RS_DATA.find(r => r.provinsi === provinsi)
+    const rest = RS_DATA.filter(r => r.provinsi !== provinsi)
+    rsList = match ? [match, ...rest] : RS_DATA
+  } else {
+    rsList = shuffleArr(RS_DATA)
+  }
+  return { articleCards: articlePool.slice(0, 6), rekoSubtitle, rsList }
 }
 
 function validity(dateStr: string) {
@@ -222,7 +284,7 @@ function derive(d: FormData) {
 
 // ─── sub-components ───────────────────────────────────────────────────────────
 
-function TopBar({ onHome, onHistory }: { onHome: () => void; onHistory: () => void }) {
+function TopBar({ onHome, onReko, onHistory }: { onHome: () => void; onReko: () => void; onHistory: () => void }) {
   return (
     <div style={{ position: 'sticky', top: 0, zIndex: 20, background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(8px)', borderBottom: '1px solid #E0E9E6' }}>
       <div style={{ maxWidth: 760, margin: '0 auto', padding: '13px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
@@ -237,6 +299,7 @@ function TopBar({ onHome, onHistory }: { onHome: () => void; onHistory: () => vo
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <button onClick={onHome} style={{ background: 'none', border: 'none', fontFamily: 'inherit', fontSize: 14, fontWeight: 600, color: '#4B635C', cursor: 'pointer', padding: '8px 12px', borderRadius: 9 }}>Beranda</button>
+          <button onClick={onReko} style={{ background: 'none', border: 'none', fontFamily: 'inherit', fontSize: 14, fontWeight: 600, color: '#4B635C', cursor: 'pointer', padding: '8px 12px', borderRadius: 9 }}>Cek ke Faskes</button>
           <button onClick={onHistory} style={{ background: 'none', border: '1.5px solid #CFE0DB', fontFamily: 'inherit', fontSize: 14, fontWeight: 600, color: '#0F766E', cursor: 'pointer', padding: '8px 14px', borderRadius: 9 }}>Riwayat</button>
         </div>
       </div>
@@ -714,6 +777,109 @@ function HistoryScreen({ history, onStart, onViewItem, onDeleteItem }: {
   )
 }
 
+function RekoScreen({ provinsi, onProvinsi, onOpenRs, onOpenArticle }: {
+  provinsi: string; onProvinsi: (p: string) => void
+  onOpenRs: (id: number) => void; onOpenArticle: (id: number) => void
+}) {
+  const [reko] = useState(() => buildReko(provinsi))
+  const mono = "'IBM Plex Mono',monospace"
+  const chip = (active: boolean): React.CSSProperties => ({
+    padding: '9px 14px', borderRadius: 99, border: `1.5px solid ${active ? '#0F766E' : '#DCE6E2'}`,
+    background: active ? '#0F766E' : '#fff', color: active ? '#fff' : '#48605A',
+    fontFamily: 'inherit', fontSize: 13.5, fontWeight: 600, cursor: 'pointer',
+  })
+
+  return (
+    <div style={{ maxWidth: 760, margin: '0 auto', padding: '26px 20px 80px', animation: 'fadeUp .4s ease' }}>
+      <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#0F766E', fontWeight: 600 }}>Layanan Resmi Pemerintah</div>
+      <h1 style={{ marginTop: 10, fontSize: 27, fontWeight: 800, letterSpacing: '-0.02em' }}>Cek Kesehatan Ginjal Gratis</h1>
+      <p style={{ marginTop: 8, fontSize: 14.5, color: '#6B817A', lineHeight: 1.55, maxWidth: '56ch' }}>{reko.rekoSubtitle}</p>
+
+      <div style={{ marginTop: 20 }}>
+        <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#5A726B', fontWeight: 600, marginBottom: 9 }}>Provinsi domisili Anda (opsional)</div>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <button onClick={() => onProvinsi('')} style={chip(!provinsi)}>Belum pilih</button>
+          {PROVINCES.map(pv => (
+            <button key={pv} onClick={() => onProvinsi(pv)} style={chip(provinsi === pv)}>{pv}</button>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ marginTop: 26 }}>
+        <div style={{ fontSize: 17, fontWeight: 800 }}>Paket MCU Ginjal Bersubsidi di RS Vertikal Kemenkes</div>
+        <p style={{ marginTop: 6, fontSize: 13, color: '#6B817A', lineHeight: 1.55 }}>RS vertikal milik pemerintah ini tidak gratis untuk umum, tapi menyediakan paket Medical Check Up (MCU) dengan tarif resmi BLU/Kemenkes — jauh lebih murah dari laboratorium swasta.</p>
+        <div style={{ marginTop: 14, display: 'flex', gap: 14, overflowX: 'auto', paddingBottom: 8 }}>
+          {reko.rsList.map(r => (
+            <div key={r.id} onClick={() => onOpenRs(r.id)} style={{ flex: 'none', width: 230, background: '#fff', border: '1px solid #E1EAE7', borderRadius: 16, padding: 16, display: 'flex', flexDirection: 'column', gap: 7, cursor: 'pointer' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+                <span style={{ fontFamily: mono, fontSize: 10, color: '#7C9088', textTransform: 'uppercase' }}>{r.provinsi}</span>
+                <span style={{ fontSize: 10, fontWeight: 700, color: '#fff', background: '#0F766E', padding: '2px 8px', borderRadius: 99 }}>Mendatang: {r.promo}</span>
+              </div>
+              <div style={{ fontSize: 14.5, fontWeight: 800, color: '#16312B', lineHeight: 1.3 }}>{r.nama}</div>
+              <div style={{ fontSize: 12, color: '#0F766E', fontWeight: 600 }}>{r.paket}</div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: '#0F766E', marginTop: 'auto' }}>Lihat detail →</div>
+            </div>
+          ))}
+        </div>
+        <p style={{ marginTop: 12, fontSize: 12, color: '#9AABA5', lineHeight: 1.5 }}>Catatan: RS di atas juga sering mengadakan diskon khusus (hingga 50%) pada momen Hari Kesehatan Nasional (November) atau HUT rumah sakit masing-masing — jadwal pastinya berbeda tiap tahun, konfirmasikan langsung ke RS terkait.</p>
+      </div>
+
+      <div style={{ marginTop: 30 }}>
+        <div style={{ fontSize: 17, fontWeight: 800 }}>Edukasi Kesehatan Ginjal</div>
+        <div style={{ marginTop: 14, display: 'flex', gap: 14, overflowX: 'auto', paddingBottom: 8 }}>
+          {reko.articleCards.map(a => (
+            <div key={a.id} onClick={() => onOpenArticle(a.id)} style={{ flex: 'none', width: 240, background: '#fff', border: '1px solid #E1EAE7', borderRadius: 16, padding: 16, display: 'flex', flexDirection: 'column', gap: 8, cursor: 'pointer' }}>
+              <div style={{ fontSize: 10.5, fontFamily: mono, color: '#0F766E', letterSpacing: '0.06em', textTransform: 'uppercase' }}>{a.topik}</div>
+              <div style={{ fontSize: 14.5, fontWeight: 800, color: '#16312B', lineHeight: 1.3 }}>{a.judul}</div>
+              <div style={{ fontSize: 12.5, color: '#6B817A', lineHeight: 1.5, flex: 1 }}>{a.ringkasan}</div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: '#0F766E' }}>Baca selengkapnya →</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <p style={{ marginTop: 26, fontSize: 11.5, lineHeight: 1.5, color: '#9AABA5', borderTop: '1px solid #E1EAE7', paddingTop: 16 }}>Data paket MCU disusun dari informasi yang diberikan pengguna. Konten edukasi ditulis oleh tim CekGinjal berdasarkan pengetahuan medis umum, bukan kutipan artikel berita tertentu. Jadwal/tarif dapat berubah — konfirmasikan langsung ke rumah sakit terkait.</p>
+    </div>
+  )
+}
+
+function RsModal({ rs, onClose }: { rs: RsItem; onClose: () => void }) {
+  return (
+    <div onClick={onClose} style={{ position: 'fixed', inset: 0, background: 'rgba(15,25,22,0.55)', zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
+      <div onClick={e => e.stopPropagation()} style={{ background: '#fff', borderRadius: 20, maxWidth: 520, width: '100%', maxHeight: '86vh', overflowY: 'auto', padding: 28, position: 'relative', animation: 'fadeUp .3s ease' }}>
+        <button onClick={onClose} style={{ position: 'absolute', top: 14, right: 14, background: '#F2F7F6', border: 'none', width: 34, height: 34, borderRadius: 99, fontSize: 17, color: '#4B635C', cursor: 'pointer', lineHeight: 1 }}>×</button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+          <span style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 10.5, color: '#7C9088', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{rs.provinsi}</span>
+          <span style={{ fontSize: 10.5, fontWeight: 700, color: '#fff', background: '#0F766E', padding: '3px 10px', borderRadius: 99 }}>Mendatang: {rs.promo}</span>
+        </div>
+        <h2 style={{ marginTop: 12, fontSize: 22, fontWeight: 800, letterSpacing: '-0.02em', lineHeight: 1.3 }}>{rs.nama}</h2>
+        <div style={{ marginTop: 6, fontSize: 14, fontWeight: 600, color: '#0F766E' }}>{rs.paket}</div>
+        <div style={{ marginTop: 20, background: '#F7FAF9', border: '1px solid #E4EDEA', borderRadius: 14, padding: '16px 18px', display: 'flex', flexDirection: 'column', gap: 9, fontSize: 14, color: '#2C443E', lineHeight: 1.5 }}>
+          <div><b>Alamat:</b> {rs.alamat}</div>
+          <div><b>Kontak:</b> {rs.kontak}</div>
+          <div><b>Jam MCU:</b> {rs.jam}</div>
+          <div><b>Potongan harga mendatang:</b> {rs.promo}</div>
+        </div>
+        <p style={{ marginTop: 16, fontSize: 12, color: '#9AABA5', lineHeight: 1.5 }}>Bukan layanan gratis untuk umum — tarif mengikuti ketentuan resmi BLU/Kemenkes. Konfirmasikan jadwal & tarif terbaru langsung ke rumah sakit.</p>
+      </div>
+    </div>
+  )
+}
+
+function ArticleModal({ article, onClose }: { article: ArticleItem; onClose: () => void }) {
+  return (
+    <div onClick={onClose} style={{ position: 'fixed', inset: 0, background: 'rgba(15,25,22,0.55)', zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
+      <div onClick={e => e.stopPropagation()} style={{ background: '#fff', borderRadius: 20, maxWidth: 560, width: '100%', maxHeight: '86vh', overflowY: 'auto', padding: 30, position: 'relative', animation: 'fadeUp .3s ease' }}>
+        <button onClick={onClose} style={{ position: 'absolute', top: 16, right: 16, background: '#F2F7F6', border: 'none', width: 34, height: 34, borderRadius: 99, fontSize: 17, color: '#4B635C', cursor: 'pointer', lineHeight: 1 }}>×</button>
+        <div style={{ fontSize: 11, fontFamily: "'IBM Plex Mono',monospace", color: '#0F766E', letterSpacing: '0.08em', textTransform: 'uppercase' }}>{article.topik}</div>
+        <h2 style={{ marginTop: 10, fontSize: 23, fontWeight: 800, letterSpacing: '-0.02em', lineHeight: 1.3, maxWidth: '30ch' }}>{article.judul}</h2>
+        <div style={{ marginTop: 18, fontSize: 15, lineHeight: 1.75, color: '#2C443E', whiteSpace: 'pre-line' }}>{article.isi}</div>
+        <div style={{ marginTop: 22, paddingTop: 16, borderTop: '1px solid #F0F4F2', fontSize: 12, color: '#9AABA5' }}>Ditulis oleh tim edukasi CekGinjal berdasarkan pengetahuan medis umum.</div>
+      </div>
+    </div>
+  )
+}
+
 // ─── App ─────────────────────────────────────────────────────────────────────
 
 export default function App() {
@@ -721,16 +887,28 @@ export default function App() {
   const [step, setStep] = useState(1)
   const [data, setData] = useState<FormData>(blank())
   const [history, setHistory] = useState<HistoryItem[]>([])
+  const [provinsi, setProvinsi] = useState('')
+  const [openArticleId, setOpenArticleId] = useState<number | null>(null)
+  const [openRsId, setOpenRsId] = useState<number | null>(null)
 
   useEffect(() => {
     try {
       const r = localStorage.getItem('cekginjal_history_v1')
       if (r) setHistory(JSON.parse(r))
     } catch {}
+    try {
+      const rp = localStorage.getItem('cekginjal_provinsi')
+      if (rp) setProvinsi(rp)
+    } catch {}
   }, [])
 
   function persist(h: HistoryItem[]) {
     try { localStorage.setItem('cekginjal_history_v1', JSON.stringify(h)) } catch {}
+  }
+
+  function onProvinsi(p: string) {
+    setProvinsi(p)
+    try { localStorage.setItem('cekginjal_provinsi', p) } catch {}
   }
 
   function onField(field: keyof FormData, value: string | boolean) {
@@ -810,7 +988,7 @@ export default function App() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#EEF3F1', fontFamily: "'Plus Jakarta Sans',system-ui,sans-serif", color: '#16312B' }}>
-      <TopBar onHome={() => setScreen('landing')} onHistory={() => setScreen('history')} />
+      <TopBar onHome={() => setScreen('landing')} onReko={() => setScreen('reko')} onHistory={() => setScreen('history')} />
       {screen === 'landing' && <Landing onStart={goStart} onHistory={() => setScreen('history')} />}
       {screen === 'form' && (
         <FormScreen data={data} step={step} onField={onField} onPick={onPick} onNext={onNext} onPrev={onPrev} />
@@ -826,6 +1004,17 @@ export default function App() {
           onDeleteItem={id => { const h = history.filter(x => x.id !== id); persist(h); setHistory(h) }}
         />
       )}
+      {screen === 'reko' && (
+        <RekoScreen provinsi={provinsi} onProvinsi={onProvinsi} onOpenRs={setOpenRsId} onOpenArticle={setOpenArticleId} />
+      )}
+      {openRsId !== null && (() => {
+        const rs = RS_DATA.find(r => r.id === openRsId)
+        return rs ? <RsModal rs={rs} onClose={() => setOpenRsId(null)} /> : null
+      })()}
+      {openArticleId !== null && (() => {
+        const article = ARTICLES_DATA.find(a => a.id === openArticleId)
+        return article ? <ArticleModal article={article} onClose={() => setOpenArticleId(null)} /> : null
+      })()}
     </div>
   )
 }
