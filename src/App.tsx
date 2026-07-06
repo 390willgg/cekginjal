@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import { supabase, getDeviceId } from './supabase'
 
 // ─── types ───────────────────────────────────────────────────────────────────
@@ -612,6 +612,34 @@ function FormScreen({ data, step, onField, onPick, onNext, onPrev }: {
   )
 }
 
+function AutoCarousel({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const paused = useRef(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const id = setInterval(() => {
+      if (paused.current || !el) return
+      const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 4
+      el.scrollTo({ left: atEnd ? 0 : el.scrollLeft + el.clientWidth * 0.6, behavior: 'smooth' })
+    }, 2800)
+    return () => clearInterval(id)
+  }, [])
+
+  return (
+    <div
+      ref={ref}
+      onMouseEnter={() => { paused.current = true }}
+      onMouseLeave={() => { paused.current = false }}
+      onTouchStart={() => { paused.current = true }}
+      style={{ marginTop: 12, display: 'flex', gap: 12, overflowX: 'auto', paddingBottom: 8, scrollSnapType: 'x mandatory' }}
+    >
+      {children}
+    </div>
+  )
+}
+
 function ResultScreen({ data, provinsi, onSave, onStart, onOpenRs, onOpenArticle }: {
   data: FormData; provinsi: string; onSave: () => void; onStart: () => void
   onOpenRs: (id: number) => void; onOpenArticle: (id: number) => void
@@ -736,30 +764,30 @@ function ResultScreen({ data, provinsi, onSave, onStart, onOpenRs, onOpenArticle
       {/* shortcut: MCU packages */}
       <div style={{ marginTop: 20 }}>
         <div style={{ fontSize: 15.5, fontWeight: 800 }}>Paket MCU Ginjal Bersubsidi di RS Vertikal Kemenkes</div>
-        <div style={{ marginTop: 12, display: 'flex', gap: 12, overflowX: 'auto', paddingBottom: 8 }}>
+        <AutoCarousel>
           {reko.rsList.slice(0, 4).map(r => (
-            <div key={r.id} onClick={() => onOpenRs(r.id)} style={{ flex: 'none', width: 210, background: '#fff', border: '1px solid #E1EAE7', borderRadius: 14, padding: 14, display: 'flex', flexDirection: 'column', gap: 6, cursor: 'pointer' }}>
+            <div key={r.id} onClick={() => onOpenRs(r.id)} style={{ flex: 'none', width: 210, scrollSnapAlign: 'start', background: '#fff', border: '1px solid #E1EAE7', borderRadius: 14, padding: 14, display: 'flex', flexDirection: 'column', gap: 6, cursor: 'pointer' }}>
               <span style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 10, color: '#7C9088', textTransform: 'uppercase' }}>{r.provinsi}</span>
               <div style={{ fontSize: 13.5, fontWeight: 800, color: '#16312B', lineHeight: 1.3 }}>{r.nama}</div>
               <div style={{ fontSize: 11.5, color: '#0F766E', fontWeight: 600 }}>{r.paket}</div>
               <div style={{ fontSize: 12.5, fontWeight: 700, color: '#0F766E', marginTop: 'auto' }}>Lihat detail →</div>
             </div>
           ))}
-        </div>
+        </AutoCarousel>
       </div>
 
       {/* shortcut: articles */}
       <div style={{ marginTop: 22 }}>
         <div style={{ fontSize: 15.5, fontWeight: 800 }}>Edukasi Kesehatan Ginjal</div>
-        <div style={{ marginTop: 12, display: 'flex', gap: 12, overflowX: 'auto', paddingBottom: 8 }}>
+        <AutoCarousel>
           {reko.articleCards.slice(0, 4).map(a => (
-            <div key={a.id} onClick={() => onOpenArticle(a.id)} style={{ flex: 'none', width: 220, background: '#fff', border: '1px solid #E1EAE7', borderRadius: 14, padding: 14, display: 'flex', flexDirection: 'column', gap: 7, cursor: 'pointer' }}>
+            <div key={a.id} onClick={() => onOpenArticle(a.id)} style={{ flex: 'none', width: 220, scrollSnapAlign: 'start', background: '#fff', border: '1px solid #E1EAE7', borderRadius: 14, padding: 14, display: 'flex', flexDirection: 'column', gap: 7, cursor: 'pointer' }}>
               <div style={{ fontSize: 10, fontFamily: "'IBM Plex Mono',monospace", color: '#0F766E', letterSpacing: '0.06em', textTransform: 'uppercase' }}>{a.topik}</div>
               <div style={{ fontSize: 13.5, fontWeight: 800, color: '#16312B', lineHeight: 1.3 }}>{a.judul}</div>
               <div style={{ fontSize: 12.5, fontWeight: 700, color: '#0F766E' }}>Baca selengkapnya →</div>
             </div>
           ))}
-        </div>
+        </AutoCarousel>
       </div>
 
       <p style={{ marginTop: 16, fontSize: 12, lineHeight: 1.55, color: '#8A9D97' }}>Estimasi skrining — bukan diagnosis. Keputusan klinis tetap memerlukan pemeriksaan fungsi ginjal oleh tenaga medis.</p>
@@ -841,9 +869,9 @@ function RekoScreen({ provinsi, onProvinsi, onOpenRs, onOpenArticle }: {
       <div style={{ marginTop: 26 }}>
         <div style={{ fontSize: 17, fontWeight: 800 }}>Paket MCU Ginjal Bersubsidi di RS Vertikal Kemenkes</div>
         <p style={{ marginTop: 6, fontSize: 13, color: '#6B817A', lineHeight: 1.55 }}>RS vertikal milik pemerintah ini tidak gratis untuk umum, tapi menyediakan paket Medical Check Up (MCU) dengan tarif resmi BLU/Kemenkes — jauh lebih murah dari laboratorium swasta.</p>
-        <div style={{ marginTop: 14, display: 'flex', gap: 14, overflowX: 'auto', paddingBottom: 8 }}>
+        <AutoCarousel>
           {reko.rsList.map(r => (
-            <div key={r.id} onClick={() => onOpenRs(r.id)} style={{ flex: 'none', width: 230, background: '#fff', border: '1px solid #E1EAE7', borderRadius: 16, padding: 16, display: 'flex', flexDirection: 'column', gap: 7, cursor: 'pointer' }}>
+            <div key={r.id} onClick={() => onOpenRs(r.id)} style={{ flex: 'none', width: 230, scrollSnapAlign: 'start', background: '#fff', border: '1px solid #E1EAE7', borderRadius: 16, padding: 16, display: 'flex', flexDirection: 'column', gap: 7, cursor: 'pointer' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
                 <span style={{ fontFamily: mono, fontSize: 10, color: '#7C9088', textTransform: 'uppercase' }}>{r.provinsi}</span>
                 <span style={{ fontSize: 10, fontWeight: 700, color: '#fff', background: '#0F766E', padding: '2px 8px', borderRadius: 99 }}>Mendatang: {r.promo}</span>
@@ -853,22 +881,22 @@ function RekoScreen({ provinsi, onProvinsi, onOpenRs, onOpenArticle }: {
               <div style={{ fontSize: 13, fontWeight: 700, color: '#0F766E', marginTop: 'auto' }}>Lihat detail →</div>
             </div>
           ))}
-        </div>
+        </AutoCarousel>
         <p style={{ marginTop: 12, fontSize: 12, color: '#9AABA5', lineHeight: 1.5 }}>Catatan: RS di atas juga sering mengadakan diskon khusus (hingga 50%) pada momen Hari Kesehatan Nasional (November) atau HUT rumah sakit masing-masing — jadwal pastinya berbeda tiap tahun, konfirmasikan langsung ke RS terkait.</p>
       </div>
 
       <div style={{ marginTop: 30 }}>
         <div style={{ fontSize: 17, fontWeight: 800 }}>Edukasi Kesehatan Ginjal</div>
-        <div style={{ marginTop: 14, display: 'flex', gap: 14, overflowX: 'auto', paddingBottom: 8 }}>
+        <AutoCarousel>
           {reko.articleCards.map(a => (
-            <div key={a.id} onClick={() => onOpenArticle(a.id)} style={{ flex: 'none', width: 240, background: '#fff', border: '1px solid #E1EAE7', borderRadius: 16, padding: 16, display: 'flex', flexDirection: 'column', gap: 8, cursor: 'pointer' }}>
+            <div key={a.id} onClick={() => onOpenArticle(a.id)} style={{ flex: 'none', width: 240, scrollSnapAlign: 'start', background: '#fff', border: '1px solid #E1EAE7', borderRadius: 16, padding: 16, display: 'flex', flexDirection: 'column', gap: 8, cursor: 'pointer' }}>
               <div style={{ fontSize: 10.5, fontFamily: mono, color: '#0F766E', letterSpacing: '0.06em', textTransform: 'uppercase' }}>{a.topik}</div>
               <div style={{ fontSize: 14.5, fontWeight: 800, color: '#16312B', lineHeight: 1.3 }}>{a.judul}</div>
               <div style={{ fontSize: 12.5, color: '#6B817A', lineHeight: 1.5, flex: 1 }}>{a.ringkasan}</div>
               <div style={{ fontSize: 13, fontWeight: 700, color: '#0F766E' }}>Baca selengkapnya →</div>
             </div>
           ))}
-        </div>
+        </AutoCarousel>
       </div>
 
       <p style={{ marginTop: 26, fontSize: 11.5, lineHeight: 1.5, color: '#9AABA5', borderTop: '1px solid #E1EAE7', paddingTop: 16 }}>Data paket MCU disusun dari informasi yang diberikan pengguna. Konten edukasi ditulis oleh tim CekGinjal berdasarkan pengetahuan medis umum, bukan kutipan artikel berita tertentu. Jadwal/tarif dapat berubah — konfirmasikan langsung ke rumah sakit terkait.</p>
