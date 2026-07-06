@@ -612,11 +612,12 @@ function FormScreen({ data, step, onField, onPick, onNext, onPrev }: {
   )
 }
 
-function ResultScreen({ data, onSave, onStart, onOpenRs, onOpenArticle }: {
-  data: FormData; onSave: () => void; onStart: () => void
+function ResultScreen({ data, provinsi, onSave, onStart, onOpenRs, onOpenArticle }: {
+  data: FormData; provinsi: string; onSave: () => void; onStart: () => void
   onOpenRs: (id: number) => void; onOpenArticle: (id: number) => void
 }) {
   const der = derive(data)
+  const reko = useMemo(() => buildReko(provinsi), [provinsi])
   const mono = "'IBM Plex Mono',monospace"
   const patientName = data.anonim ? 'Pasien Anonim' : (data.nama.trim() || 'Tanpa nama')
   const todayStr = fmtDate(new Date())
@@ -736,7 +737,7 @@ function ResultScreen({ data, onSave, onStart, onOpenRs, onOpenArticle }: {
       <div style={{ marginTop: 20 }}>
         <div style={{ fontSize: 15.5, fontWeight: 800 }}>Paket MCU Ginjal Bersubsidi di RS Vertikal Kemenkes</div>
         <div style={{ marginTop: 12, display: 'flex', gap: 12, overflowX: 'auto', paddingBottom: 8 }}>
-          {RS_DATA.slice(0, 4).map(r => (
+          {reko.rsList.slice(0, 4).map(r => (
             <div key={r.id} onClick={() => onOpenRs(r.id)} style={{ flex: 'none', width: 210, background: '#fff', border: '1px solid #E1EAE7', borderRadius: 14, padding: 14, display: 'flex', flexDirection: 'column', gap: 6, cursor: 'pointer' }}>
               <span style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 10, color: '#7C9088', textTransform: 'uppercase' }}>{r.provinsi}</span>
               <div style={{ fontSize: 13.5, fontWeight: 800, color: '#16312B', lineHeight: 1.3 }}>{r.nama}</div>
@@ -751,7 +752,7 @@ function ResultScreen({ data, onSave, onStart, onOpenRs, onOpenArticle }: {
       <div style={{ marginTop: 22 }}>
         <div style={{ fontSize: 15.5, fontWeight: 800 }}>Edukasi Kesehatan Ginjal</div>
         <div style={{ marginTop: 12, display: 'flex', gap: 12, overflowX: 'auto', paddingBottom: 8 }}>
-          {ARTICLES_DATA.slice(0, 4).map(a => (
+          {reko.articleCards.slice(0, 4).map(a => (
             <div key={a.id} onClick={() => onOpenArticle(a.id)} style={{ flex: 'none', width: 220, background: '#fff', border: '1px solid #E1EAE7', borderRadius: 14, padding: 14, display: 'flex', flexDirection: 'column', gap: 7, cursor: 'pointer' }}>
               <div style={{ fontSize: 10, fontFamily: "'IBM Plex Mono',monospace", color: '#0F766E', letterSpacing: '0.06em', textTransform: 'uppercase' }}>{a.topik}</div>
               <div style={{ fontSize: 13.5, fontWeight: 800, color: '#16312B', lineHeight: 1.3 }}>{a.judul}</div>
@@ -1009,7 +1010,7 @@ export default function App() {
         <FormScreen data={data} step={step} onField={onField} onPick={onPick} onNext={onNext} onPrev={onPrev} />
       )}
       {screen === 'result' && (
-        <ResultScreen data={data} onSave={saveResult} onStart={goStart} onOpenRs={setOpenRsId} onOpenArticle={setOpenArticleId} />
+        <ResultScreen data={data} provinsi={provinsi} onSave={saveResult} onStart={goStart} onOpenRs={setOpenRsId} onOpenArticle={setOpenArticleId} />
       )}
       {screen === 'history' && (
         <HistoryScreen
