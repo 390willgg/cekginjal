@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { SHEETS_URL } from './config'
+import { supabase, getDeviceId } from './supabase'
 
 // ─── types ───────────────────────────────────────────────────────────────────
 
@@ -900,6 +900,17 @@ export default function App() {
       const rp = localStorage.getItem('cekginjal_provinsi')
       if (rp) setProvinsi(rp)
     } catch {}
+    if (supabase) {
+      getDeviceId().then(deviceId => {
+        if (!deviceId) return
+        supabase!.from('history').select('item').order('created_at', { ascending: false }).then(({ data, error }) => {
+          if (error || !data) return
+          const remote: HistoryItem[] = data.map(row => row.item as HistoryItem)
+          setHistory(remote)
+          persist(remote)
+        })
+      })
+    }
   }, [])
 
   function persist(h: HistoryItem[]) {
@@ -946,39 +957,11 @@ export default function App() {
       confidencePct: der.confidencePct,
       data: { ...data },
     }
-    if (SHEETS_URL) {
-      fetch(SHEETS_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          tanggal: fmtDate(new Date()),
-          nama,
-          umur: data.umur,
-          gender: data.gender,
-          tinggi: data.tinggi,
-          berat: data.berat,
-          bmi: der.bmi,
-          bmiCat: der.bmiCat,
-          gdValue: data.gdValue,
-          gdType: data.gdType,
-          gdDate: data.gdDate,
-          gdCat: der.gdCat,
-          sys: data.sys,
-          dia: data.dia,
-          bpDate: data.bpDate,
-          bpCat: der.bpCat,
-          diabetes: data.diabetes,
-          dmType: data.dmType,
-          hipertensi: data.hipertensi,
-          keluarga: data.keluarga,
-          jantung: data.jantung,
-          aktivitas: data.aktivitas,
-          riskPct: der.riskPct,
-          riskCat: der.riskCat,
-          confidencePct: der.confidencePct,
-        }),
-      }).catch(() => {})
+    if (supabase) {
+      getDeviceId().then(deviceId => {
+        if (!deviceId) return
+        supabase!.from('history').insert({ id: item.id, device_id: deviceId, item }).then(() => {})
+      })
     }
     const h = [item, ...history]
     persist(h)
@@ -1001,7 +984,7 @@ export default function App() {
           history={history}
           onStart={goStart}
           onViewItem={id => { const it = history.find(x => x.id === id); if (it) { setData({ ...it.data }); setScreen('result') } }}
-          onDeleteItem={id => { const h = history.filter(x => x.id !== id); persist(h); setHistory(h) }}
+          onDeleteItem={id => { const h = history.filter(x => x.id !== id); persist(h); setHistory(h); supabase?.from('history').delete().eq('id', id).then(() => {}) }}
         />
       )}
       {screen === 'reko' && (
