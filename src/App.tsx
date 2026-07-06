@@ -612,7 +612,10 @@ function FormScreen({ data, step, onField, onPick, onNext, onPrev }: {
   )
 }
 
-function ResultScreen({ data, onSave, onStart }: { data: FormData; onSave: () => void; onStart: () => void }) {
+function ResultScreen({ data, onSave, onStart, onOpenRs, onOpenArticle }: {
+  data: FormData; onSave: () => void; onStart: () => void
+  onOpenRs: (id: number) => void; onOpenArticle: (id: number) => void
+}) {
   const der = derive(data)
   const mono = "'IBM Plex Mono',monospace"
   const patientName = data.anonim ? 'Pasien Anonim' : (data.nama.trim() || 'Tanpa nama')
@@ -727,6 +730,35 @@ function ResultScreen({ data, onSave, onStart }: { data: FormData; onSave: () =>
             <div style={{ fontSize: 14, lineHeight: 1.5, color: '#2C443E' }}>{e}</div>
           </div>
         ))}
+      </div>
+
+      {/* shortcut: MCU packages */}
+      <div style={{ marginTop: 20 }}>
+        <div style={{ fontSize: 15.5, fontWeight: 800 }}>Paket MCU Ginjal Bersubsidi di RS Vertikal Kemenkes</div>
+        <div style={{ marginTop: 12, display: 'flex', gap: 12, overflowX: 'auto', paddingBottom: 8 }}>
+          {RS_DATA.slice(0, 4).map(r => (
+            <div key={r.id} onClick={() => onOpenRs(r.id)} style={{ flex: 'none', width: 210, background: '#fff', border: '1px solid #E1EAE7', borderRadius: 14, padding: 14, display: 'flex', flexDirection: 'column', gap: 6, cursor: 'pointer' }}>
+              <span style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 10, color: '#7C9088', textTransform: 'uppercase' }}>{r.provinsi}</span>
+              <div style={{ fontSize: 13.5, fontWeight: 800, color: '#16312B', lineHeight: 1.3 }}>{r.nama}</div>
+              <div style={{ fontSize: 11.5, color: '#0F766E', fontWeight: 600 }}>{r.paket}</div>
+              <div style={{ fontSize: 12.5, fontWeight: 700, color: '#0F766E', marginTop: 'auto' }}>Lihat detail →</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* shortcut: articles */}
+      <div style={{ marginTop: 22 }}>
+        <div style={{ fontSize: 15.5, fontWeight: 800 }}>Edukasi Kesehatan Ginjal</div>
+        <div style={{ marginTop: 12, display: 'flex', gap: 12, overflowX: 'auto', paddingBottom: 8 }}>
+          {ARTICLES_DATA.slice(0, 4).map(a => (
+            <div key={a.id} onClick={() => onOpenArticle(a.id)} style={{ flex: 'none', width: 220, background: '#fff', border: '1px solid #E1EAE7', borderRadius: 14, padding: 14, display: 'flex', flexDirection: 'column', gap: 7, cursor: 'pointer' }}>
+              <div style={{ fontSize: 10, fontFamily: "'IBM Plex Mono',monospace", color: '#0F766E', letterSpacing: '0.06em', textTransform: 'uppercase' }}>{a.topik}</div>
+              <div style={{ fontSize: 13.5, fontWeight: 800, color: '#16312B', lineHeight: 1.3 }}>{a.judul}</div>
+              <div style={{ fontSize: 12.5, fontWeight: 700, color: '#0F766E' }}>Baca selengkapnya →</div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <p style={{ marginTop: 16, fontSize: 12, lineHeight: 1.55, color: '#8A9D97' }}>Estimasi skrining — bukan diagnosis. Keputusan klinis tetap memerlukan pemeriksaan fungsi ginjal oleh tenaga medis.</p>
@@ -977,7 +1009,7 @@ export default function App() {
         <FormScreen data={data} step={step} onField={onField} onPick={onPick} onNext={onNext} onPrev={onPrev} />
       )}
       {screen === 'result' && (
-        <ResultScreen data={data} onSave={saveResult} onStart={goStart} />
+        <ResultScreen data={data} onSave={saveResult} onStart={goStart} onOpenRs={setOpenRsId} onOpenArticle={setOpenArticleId} />
       )}
       {screen === 'history' && (
         <HistoryScreen
