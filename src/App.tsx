@@ -113,14 +113,9 @@ function buildReko(provinsi: string) {
   const rekoSubtitle = provinsi
     ? `Cari Puskesmas/FKTP terdekat atau paket MCU ginjal bersubsidi sesuai domisili Anda (${provinsi}) di bawah ini.`
     : 'Pilih provinsi Anda untuk melihat rekomendasi paket MCU ginjal yang sesuai domisili.'
-  let rsList: RsItem[]
-  if (provinsi) {
-    const match = RS_DATA.find(r => r.provinsi === provinsi)
-    const rest = RS_DATA.filter(r => r.provinsi !== provinsi)
-    rsList = match ? [match, ...rest] : RS_DATA
-  } else {
-    rsList = shuffleArr(RS_DATA)
-  }
+  const rsList: RsItem[] = provinsi
+    ? RS_DATA.filter(r => r.provinsi === provinsi)
+    : shuffleArr(RS_DATA)
   return { articleCards: articlePool.slice(0, 6), rekoSubtitle, rsList }
 }
 
@@ -874,20 +869,26 @@ function RekoScreen({ provinsi, onProvinsi, onOpenRs, onOpenArticle }: {
       <div style={{ marginTop: 26 }}>
         <div style={{ fontSize: 17, fontWeight: 800 }}>Paket MCU Ginjal Bersubsidi di RS Vertikal Kemenkes</div>
         <p style={{ marginTop: 6, fontSize: 13, color: '#6B817A', lineHeight: 1.55 }}>RS vertikal milik pemerintah ini tidak gratis untuk umum, tapi menyediakan paket Medical Check Up (MCU) dengan tarif resmi BLU/Kemenkes — jauh lebih murah dari laboratorium swasta.</p>
-        <AutoCarousel>
-          {reko.rsList.map(r => (
-            <div key={r.id} onClick={() => onOpenRs(r.id)} style={{ flex: 'none', width: 230, scrollSnapAlign: 'start', background: '#fff', border: '1px solid #E1EAE7', borderRadius: 16, padding: 16, display: 'flex', flexDirection: 'column', gap: 7, cursor: 'pointer' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
-                <span style={{ fontFamily: mono, fontSize: 10, color: '#7C9088', textTransform: 'uppercase' }}>{r.provinsi}</span>
-                <span style={{ fontSize: 10, fontWeight: 700, color: '#fff', background: '#0F766E', padding: '2px 8px', borderRadius: 99 }}>Mendatang: {r.promo}</span>
-              </div>
-              <div style={{ fontSize: 14.5, fontWeight: 800, color: '#16312B', lineHeight: 1.3 }}>{r.nama}</div>
-              <div style={{ fontSize: 12, color: '#0F766E', fontWeight: 600 }}>{r.paket}</div>
-              <div style={{ fontSize: 13, fontWeight: 700, color: '#0F766E', marginTop: 'auto' }}>Lihat detail →</div>
-            </div>
-          ))}
-        </AutoCarousel>
-        <p style={{ marginTop: 12, fontSize: 12, color: '#9AABA5', lineHeight: 1.5 }}>Catatan: RS di atas juga sering mengadakan diskon khusus (hingga 50%) pada momen Hari Kesehatan Nasional (November) atau HUT rumah sakit masing-masing — jadwal pastinya berbeda tiap tahun, konfirmasikan langsung ke RS terkait.</p>
+        {reko.rsList.length === 0 ? (
+          <p style={{ marginTop: 12, fontSize: 13.5, color: '#8A9D97' }}>Tidak ada paket MCU ginjal bersubsidi di domisili {provinsi}.</p>
+        ) : (
+          <>
+            <AutoCarousel>
+              {reko.rsList.map(r => (
+                <div key={r.id} onClick={() => onOpenRs(r.id)} style={{ flex: 'none', width: 230, scrollSnapAlign: 'start', background: '#fff', border: '1px solid #E1EAE7', borderRadius: 16, padding: 16, display: 'flex', flexDirection: 'column', gap: 7, cursor: 'pointer' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+                    <span style={{ fontFamily: mono, fontSize: 10, color: '#7C9088', textTransform: 'uppercase' }}>{r.provinsi}</span>
+                    <span style={{ fontSize: 10, fontWeight: 700, color: '#fff', background: '#0F766E', padding: '2px 8px', borderRadius: 99 }}>Mendatang: {r.promo}</span>
+                  </div>
+                  <div style={{ fontSize: 14.5, fontWeight: 800, color: '#16312B', lineHeight: 1.3 }}>{r.nama}</div>
+                  <div style={{ fontSize: 12, color: '#0F766E', fontWeight: 600 }}>{r.paket}</div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: '#0F766E', marginTop: 'auto' }}>Lihat detail →</div>
+                </div>
+              ))}
+            </AutoCarousel>
+            <p style={{ marginTop: 12, fontSize: 12, color: '#9AABA5', lineHeight: 1.5 }}>Catatan: RS di atas juga sering mengadakan diskon khusus (hingga 50%) pada momen Hari Kesehatan Nasional (November) atau HUT rumah sakit masing-masing — jadwal pastinya berbeda tiap tahun, konfirmasikan langsung ke RS terkait.</p>
+          </>
+        )}
       </div>
 
       <div style={{ marginTop: 30 }}>
@@ -924,7 +925,6 @@ function RsModal({ rs, onClose }: { rs: RsItem; onClose: () => void }) {
           <div><b>Alamat:</b> {rs.alamat}</div>
           <div><b>Kontak:</b> {rs.kontak}</div>
           <div><b>Jam MCU:</b> {rs.jam}</div>
-          <div><b>Potongan harga mendatang:</b> {rs.promo}</div>
         </div>
         <p style={{ marginTop: 16, fontSize: 12, color: '#9AABA5', lineHeight: 1.5 }}>Bukan layanan gratis untuk umum — tarif mengikuti ketentuan resmi BLU/Kemenkes. Konfirmasikan jadwal & tarif terbaru langsung ke rumah sakit.</p>
       </div>
