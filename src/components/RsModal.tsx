@@ -1,11 +1,23 @@
+import { useEffect } from "react";
 import type { RsItem } from "../types";
 import styles from "./RsModal.module.css";
 
 export function RsModal({ rs, onClose }: { rs: RsItem; onClose: () => void }) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
   return (
     <div onClick={onClose} className={styles.overlay}>
       <div onClick={(e) => e.stopPropagation()} className={styles.card}>
-        <button onClick={onClose} className={styles.closeBtn}>
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Tutup"
+          className={styles.closeBtn}
+        >
           ×
         </button>
         <div className={styles.tags}>
