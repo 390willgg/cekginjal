@@ -18,7 +18,6 @@
   overflow-y: auto;
   padding: 28px;
   position: relative;
-  animation: fadeUp .3s ease;
 }
 
 .closeBtn {

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { supabase, getDeviceId } from './supabase'
 import type { Screen, FormData, HistoryItem } from './types'
 import { blank, fmtDate, derive } from './lib/derive'
@@ -104,32 +105,44 @@ export default function App() {
   return (
     <div className={styles.app}>
       <TopBar onHome={() => setScreen('landing')} onReko={() => setScreen('reko')} onHistory={() => setScreen('history')} />
-      {screen === 'landing' && <Landing onStart={goStart} onHistory={() => setScreen('history')} />}
-      {screen === 'form' && (
-        <FormScreen data={data} step={step} onField={onField} onPick={onPick} onNext={onNext} onPrev={onPrev} />
-      )}
-      {screen === 'result' && (
-        <ResultScreen data={data} provinsi={provinsi} onSave={saveResult} onStart={goStart} onOpenRs={setOpenRsId} onOpenArticle={setOpenArticleId} />
-      )}
-      {screen === 'history' && (
-        <HistoryScreen
-          history={history}
-          onStart={goStart}
-          onViewItem={id => { const it = history.find(x => x.id === id); if (it) { setData({ ...it.data }); setScreen('result') } }}
-          onDeleteItem={id => { const h = history.filter(x => x.id !== id); persist(h); setHistory(h); supabase?.from('history').delete().eq('id', id).then(() => {}) }}
-        />
-      )}
-      {screen === 'reko' && (
-        <RekoScreen provinsi={provinsi} onProvinsi={onProvinsi} onOpenRs={setOpenRsId} onOpenArticle={setOpenArticleId} />
-      )}
-      {openRsId !== null && (() => {
-        const rs = RS_DATA.find(r => r.id === openRsId)
-        return rs ? <RsModal rs={rs} onClose={() => setOpenRsId(null)} /> : null
-      })()}
-      {openArticleId !== null && (() => {
-        const article = ARTICLES_DATA.find(a => a.id === openArticleId)
-        return article ? <ArticleModal article={article} onClose={() => setOpenArticleId(null)} /> : null
-      })()}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={screen}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.2, ease: 'easeOut' }}
+        >
+          {screen === 'landing' && <Landing onStart={goStart} onHistory={() => setScreen('history')} />}
+          {screen === 'form' && (
+            <FormScreen data={data} step={step} onField={onField} onPick={onPick} onNext={onNext} onPrev={onPrev} />
+          )}
+          {screen === 'result' && (
+            <ResultScreen data={data} provinsi={provinsi} onSave={saveResult} onStart={goStart} onOpenRs={setOpenRsId} onOpenArticle={setOpenArticleId} />
+          )}
+          {screen === 'history' && (
+            <HistoryScreen
+              history={history}
+              onStart={goStart}
+              onViewItem={id => { const it = history.find(x => x.id === id); if (it) { setData({ ...it.data }); setScreen('result') } }}
+              onDeleteItem={id => { const h = history.filter(x => x.id !== id); persist(h); setHistory(h); supabase?.from('history').delete().eq('id', id).then(() => {}) }}
+            />
+          )}
+          {screen === 'reko' && (
+            <RekoScreen provinsi={provinsi} onProvinsi={onProvinsi} onOpenRs={setOpenRsId} onOpenArticle={setOpenArticleId} />
+          )}
+        </motion.div>
+      </AnimatePresence>
+      <AnimatePresence>
+        {openRsId !== null && (() => {
+          const rs = RS_DATA.find(r => r.id === openRsId)
+          return rs ? <RsModal rs={rs} onClose={() => setOpenRsId(null)} /> : null
+        })()}
+        {openArticleId !== null && (() => {
+          const article = ARTICLES_DATA.find(a => a.id === openArticleId)
+          return article ? <ArticleModal article={article} onClose={() => setOpenArticleId(null)} /> : null
+        })()}
+      </AnimatePresence>
     </div>
   )
 }

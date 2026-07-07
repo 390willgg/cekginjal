@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from 'framer-motion'
 import type { FormData } from '../types'
 import { Step1Identitas } from './form-steps/Step1Identitas'
 import { Step2Antropometri } from './form-steps/Step2Antropometri'
@@ -28,20 +29,29 @@ export function FormScreen({ data, step, onField, onPick, onNext, onPrev }: {
         <div className={styles.fill} style={{ width: `${step / 6 * 100}%` }} />
       </div>
 
-      <div key={step} className={styles.card}>
-        {step === 1 && <Step1Identitas data={data} onField={onField} onPick={onPick} />}
-        {step === 2 && <Step2Antropometri data={data} onField={onField} />}
-        {step === 3 && <Step3GulaDarah data={data} onField={onField} onPick={onPick} />}
-        {step === 4 && <Step4TekananDarah data={data} onField={onField} />}
-        {step === 5 && <Step5Riwayat data={data} onField={onField} onPick={onPick} />}
-        {step === 6 && <Step6Aktivitas data={data} onPick={onPick} />}
-      </div>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={step}
+          className={styles.card}
+          initial={{ opacity: 0, x: 16 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -16 }}
+          transition={{ duration: 0.2, ease: 'easeOut' }}
+        >
+          {step === 1 && <Step1Identitas data={data} onField={onField} onPick={onPick} />}
+          {step === 2 && <Step2Antropometri data={data} onField={onField} />}
+          {step === 3 && <Step3GulaDarah data={data} onField={onField} onPick={onPick} />}
+          {step === 4 && <Step4TekananDarah data={data} onField={onField} />}
+          {step === 5 && <Step5Riwayat data={data} onField={onField} onPick={onPick} />}
+          {step === 6 && <Step6Aktivitas data={data} onPick={onPick} />}
+        </motion.div>
+      </AnimatePresence>
 
       <div className={styles.actions}>
-        <button onClick={onPrev} className={styles.backBtn}>← Kembali</button>
-        <button onClick={onNext} className={styles.nextBtn}>
+        <motion.button whileTap={{ scale: 0.96 }} onClick={onPrev} className={styles.backBtn}>← Kembali</motion.button>
+        <motion.button whileTap={{ scale: 0.96 }} onClick={onNext} className={styles.nextBtn}>
           {step < 6 ? 'Lanjut →' : 'Lihat Hasil Skrining →'}
-        </button>
+        </motion.button>
       </div>
     </div>
   )
