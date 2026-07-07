@@ -13,7 +13,7 @@ export function TopBar({
   return (
     <div className={styles.bar}>
       <div className={styles.inner}>
-        <div onClick={onHome} className={styles.brand}>
+        <button type="button" onClick={onHome} className={styles.brand}>
           <div className={styles.logoBox}>
             <img src={kidneyLogo} alt="" className={styles.logoImg} />
           </div>
@@ -21,7 +21,7 @@ export function TopBar({
             <div className={styles.brandTitle}>CekGinjal</div>
             <div className={styles.brandSub}>Skrining CKD</div>
           </div>
-        </div>
+        </button>
         <div className={styles.nav}>
           <button onClick={onHome} className={styles.navBtn}>
             Beranda
