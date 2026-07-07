@@ -1,0 +1,84 @@
+.title {
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #6B817A;
+  margin-top: 5px;
+}
+
+.anonimLabel {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-top: 22px;
+  padding: 13px 15px;
+  border: 1.5px solid #E1EAE7;
+  border-radius: 13px;
+  cursor: pointer;
+  background: #F7FAF9;
+}
+
+.checkbox {
+  width: 19px;
+  height: 19px;
+  accent-color: #0F766E;
+  cursor: pointer;
+}
+
+.anonimText {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #2C443E;
+}
+
+.namaWrap {
+  margin-top: 18px;
+}
+
+.namaInput {
+  padding: 13px 14px;
+}
+
+.row {
+  display: flex;
+  gap: 14px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+.col {
+  flex: 1;
+  min-width: 130px;
+}
+
+.colWide {
+  flex: 1;
+  min-width: 160px;
+}
+
+.inputWrap {
+  position: relative;
+}
+
+.umurInput {
+  padding: 13px 46px 13px 14px;
+}
+
+.unit {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: #9AABA5;
+}
+
+.genderRow {
+  display: flex;
+  gap: 8px;
+}

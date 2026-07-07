@@ -1,0 +1,8 @@
+.track {
+  margin-top: 12px;
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-snap-type: x mandatory;
+}

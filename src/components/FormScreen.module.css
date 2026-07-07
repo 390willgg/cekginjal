@@ -1,0 +1,82 @@
+.page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 26px 20px 80px;
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 9px;
+}
+
+.step {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #0F766E;
+  font-weight: 600;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #16312B;
+}
+
+.track {
+  height: 6px;
+  background: #DCE7E3;
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  background: #0F766E;
+  border-radius: 99px;
+  transition: width .3s ease;
+}
+
+.card {
+  margin-top: 24px;
+  background: #fff;
+  border: 1px solid #E1EAE7;
+  border-radius: 18px;
+  padding: 26px 22px;
+  animation: fadeUp .3s ease;
+}
+
+.actions {
+  margin-top: 18px;
+  display: flex;
+  gap: 12px;
+}
+
+.backBtn {
+  background: #fff;
+  color: #4B635C;
+  border: 1.5px solid #D6E2DE;
+  border-radius: 13px;
+  padding: 15px 22px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.nextBtn {
+  flex: 1;
+  background: #0F766E;
+  color: #fff;
+  border: none;
+  border-radius: 13px;
+  padding: 15px 22px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(15, 118, 110, 0.22);
+}

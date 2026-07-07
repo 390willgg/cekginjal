@@ -1,0 +1,135 @@
+.page {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+  animation: fadeUp .4s ease;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 14.5px;
+  color: #6B817A;
+  margin-top: 5px;
+}
+
+.empty {
+  margin-top: 28px;
+  background: #fff;
+  border: 1px dashed #D5E0DC;
+  border-radius: 18px;
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.emptyTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: #4B635C;
+}
+
+.emptySub {
+  font-size: 13.5px;
+  color: #8A9D97;
+  margin-top: 5px;
+}
+
+.emptyBtn {
+  margin-top: 18px;
+  background: #0F766E;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 13px 22px;
+  font-family: inherit;
+  font-size: 14.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.list {
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.item {
+  background: #fff;
+  border: 1px solid #E1EAE7;
+  border-radius: 15px;
+  padding: 16px 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.riskBadge {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.riskPct {
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.riskLabel {
+  font-size: 8px;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+.nama {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: #16312B;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meta {
+  font-size: 12.5px;
+  color: #7C9088;
+  margin-top: 2px;
+}
+
+.right {
+  text-align: right;
+  flex: none;
+}
+
+.riskCat {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.deleteBtn {
+  margin-top: 4px;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 11px;
+  color: #B0BFBA;
+  cursor: pointer;
+  padding: 2px;
+}

@@ -1,0 +1,59 @@
+.inputBase {
+  width: 100%;
+  border: 1.5px solid #DCE6E2;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 16px;
+  color: #16312B;
+  background: #fff;
+  outline: none;
+}
+
+.labelStyle {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #5A726B;
+  font-weight: 500;
+  margin-bottom: 7px;
+}
+
+.seg {
+  flex: 1;
+  text-align: center;
+  padding: 11px 8px;
+  border: 1.5px solid #DCE6E2;
+  border-radius: 11px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .15s;
+  background: #fff;
+  color: #48605A;
+}
+
+.segActive {
+  background: #0F766E;
+  color: #fff;
+  border-color: #0F766E;
+}
+
+.actCard {
+  width: 100%;
+  text-align: left;
+  display: block;
+  padding: 15px 16px;
+  border: 1.5px solid #DCE6E2;
+  border-radius: 13px;
+  background: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all .15s;
+}
+
+.actCardActive {
+  border-color: #0F766E;
+  background: #F0F8F6;
+}

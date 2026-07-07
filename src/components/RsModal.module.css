@@ -1,0 +1,97 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 25, 22, 0.55);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 20px;
+  max-width: 520px;
+  width: 100%;
+  max-height: 86vh;
+  overflow-y: auto;
+  padding: 28px;
+  position: relative;
+  animation: fadeUp .3s ease;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: #F2F7F6;
+  border: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 99px;
+  font-size: 17px;
+  color: #4B635C;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.tags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.provinsi {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  color: #7C9088;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.promo {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #fff;
+  background: #0F766E;
+  padding: 3px 10px;
+  border-radius: 99px;
+}
+
+.title {
+  margin-top: 12px;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.paket {
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0F766E;
+}
+
+.details {
+  margin-top: 20px;
+  background: #F7FAF9;
+  border: 1px solid #E4EDEA;
+  border-radius: 14px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  font-size: 14px;
+  color: #2C443E;
+  line-height: 1.5;
+}
+
+.disclaimer {
+  margin-top: 16px;
+  font-size: 12px;
+  color: #9AABA5;
+  line-height: 1.5;
+}

@@ -1,0 +1,466 @@
+.page {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 26px 20px 80px;
+  animation: fadeUp .4s ease;
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.patientName {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.patientMeta {
+  font-size: 13px;
+  color: #7C9088;
+  margin-top: 2px;
+}
+
+.riskCard {
+  margin-top: 18px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  padding: 24px;
+}
+
+.kicker {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #5A726B;
+  font-weight: 600;
+}
+
+.riskValueRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.riskPct {
+  font-size: 64px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+}
+
+.riskPctUnit {
+  font-size: 30px;
+}
+
+.riskBadge {
+  font-size: 16px;
+  font-weight: 800;
+  padding: 8px 16px;
+  border-radius: 99px;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.riskTrack {
+  position: relative;
+  margin-top: 20px;
+  height: 12px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #2FAE6B 0 25%, #E0A93B 25% 50%, #D9645A 50% 100%);
+}
+
+.riskMarker {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 24px;
+  background: #fff;
+  border: 2.5px solid #16312B;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.riskLegend {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: #7C9088;
+}
+
+.card {
+  margin-top: 14px;
+  background: #fff;
+  border: 1px solid #E1EAE7;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.kidneyAgeRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 14px;
+}
+
+.kidneyAgeCol {
+  text-align: center;
+  flex: 1;
+}
+
+.kidneyAgeLabel {
+  font-size: 12px;
+  color: #7C9088;
+}
+
+.kidneyAgeValue {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: #16312B;
+}
+
+.kidneyAgeUnit {
+  font-size: 15px;
+  color: #9AABA5;
+  font-weight: 600;
+}
+
+.kidneyAgeArrow {
+  font-size: 24px;
+  color: #C2D2CD;
+  flex: none;
+}
+
+.kidneyAgeValueEst {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.kidneyAgeUnitEst {
+  font-size: 15px;
+  font-weight: 600;
+  opacity: 0.6;
+}
+
+.kidneyAgeNote {
+  margin-top: 14px;
+  font-size: 13.5px;
+  color: #4B635C;
+  line-height: 1.55;
+  background: #F7FAF9;
+  border-radius: 11px;
+  padding: 12px 14px;
+}
+
+.strong16 {
+  color: #16312B;
+}
+
+.confidenceHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.confidencePct {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.confidenceTrack {
+  margin-top: 12px;
+  height: 9px;
+  border-radius: 99px;
+  background: #ECF1EF;
+  overflow: hidden;
+}
+
+.confidenceFill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width .4s ease;
+}
+
+.confidenceNote {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #4B635C;
+  line-height: 1.5;
+}
+
+.factorsKicker {
+  margin-bottom: 6px;
+}
+
+.factorsEmpty {
+  font-size: 14px;
+  color: #1A8754;
+  padding: 8px 0;
+}
+
+.factorRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 0;
+  border-bottom: 1px solid #F0F4F2;
+}
+
+.factorLabel {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #2C443E;
+}
+
+.factorPts {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: #C5453B;
+}
+
+.recapGrid {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.recapCard {
+  background: #fff;
+  border: 1px solid #E1EAE7;
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.recapLabel {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #7C9088;
+}
+
+.recapValue {
+  font-size: 22px;
+  font-weight: 800;
+  margin-top: 4px;
+}
+
+.recapUnit {
+  font-size: 12px;
+  color: #9AABA5;
+  font-weight: 500;
+}
+
+.recapSub {
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.rekomendasiCard {
+  margin-top: 14px;
+  background: #0F766E;
+  border-radius: 16px;
+  padding: 20px;
+  color: #fff;
+}
+
+.rekomendasiKicker {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #A8D6CF;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.rekomendasiRow {
+  display: flex;
+  gap: 10px;
+  padding: 6px 0;
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+
+.rekomendasiBullet {
+  color: #A8D6CF;
+}
+
+.edukasiKicker {
+  margin-bottom: 12px;
+}
+
+.edukasiRow {
+  display: flex;
+  gap: 11px;
+  align-items: flex-start;
+  padding: 9px 0;
+  border-bottom: 1px solid #F0F4F2;
+}
+
+.edukasiCheck {
+  width: 18px;
+  height: 18px;
+  border-radius: 99px;
+  background: #E3F0ED;
+  color: #0F766E;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  margin-top: 1px;
+}
+
+.edukasiText {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #2C443E;
+}
+
+.shortcutSection {
+  margin-top: 20px;
+}
+
+.shortcutSectionSpaced {
+  margin-top: 22px;
+}
+
+.shortcutTitle {
+  font-size: 15.5px;
+  font-weight: 800;
+}
+
+.mcuCard {
+  flex: none;
+  width: 210px;
+  scroll-snap-align: start;
+  background: #fff;
+  border: 1px solid #E1EAE7;
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.mcuProvinsi {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: #7C9088;
+  text-transform: uppercase;
+}
+
+.mcuNama {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #16312B;
+  line-height: 1.3;
+}
+
+.mcuPaket {
+  font-size: 11.5px;
+  color: #0F766E;
+  font-weight: 600;
+}
+
+.mcuCta {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #0F766E;
+  margin-top: auto;
+}
+
+.articleCard {
+  flex: none;
+  width: 220px;
+  scroll-snap-align: start;
+  background: #fff;
+  border: 1px solid #E1EAE7;
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  cursor: pointer;
+}
+
+.articleTopik {
+  font-size: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  color: #0F766E;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.articleJudul {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #16312B;
+  line-height: 1.3;
+}
+
+.articleCta {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #0F766E;
+}
+
+.footerNote {
+  margin-top: 16px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #8A9D97;
+}
+
+.actions {
+  margin-top: 18px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.saveBtn {
+  flex: 1;
+  min-width: 160px;
+  background: #0F766E;
+  color: #fff;
+  border: none;
+  border-radius: 13px;
+  padding: 15px 22px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(15, 118, 110, 0.22);
+}
+
+.newBtn {
+  background: #fff;
+  color: #0F766E;
+  border: 1.5px solid #CFE0DB;
+  border-radius: 13px;
+  padding: 15px 22px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}

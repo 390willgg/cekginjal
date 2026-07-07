@@ -1,0 +1,117 @@
+.page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 42px 20px 64px;
+  animation: fadeUp .4s ease;
+}
+
+.kicker {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #0F766E;
+  font-weight: 600;
+}
+
+.title {
+  margin-top: 14px;
+  font-size: 38px;
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  max-width: 15ch;
+}
+
+.subtitle {
+  margin-top: 16px;
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: #4B635C;
+  max-width: 54ch;
+}
+
+.subtitleStrong {
+  color: #16312B;
+}
+
+.stepsCard {
+  margin-top: 28px;
+  background: #fff;
+  border: 1px solid #E1EAE7;
+  border-radius: 18px;
+  padding: 8px;
+}
+
+.stepRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 15px 14px;
+  border-radius: 12px;
+}
+
+.stepNo {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0F766E;
+  width: 26px;
+  flex: none;
+}
+
+.stepBody {
+  flex: 1;
+}
+
+.stepTitle {
+  font-size: 15.5px;
+  font-weight: 700;
+}
+
+.stepDesc {
+  font-size: 13.5px;
+  color: #6B817A;
+  margin-top: 2px;
+}
+
+.actions {
+  margin-top: 26px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.primaryBtn {
+  background: #0F766E;
+  color: #fff;
+  border: none;
+  border-radius: 13px;
+  padding: 16px 26px;
+  font-family: inherit;
+  font-size: 15.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(15, 118, 110, 0.25);
+}
+
+.secondaryBtn {
+  background: #fff;
+  color: #0F766E;
+  border: 1.5px solid #CFE0DB;
+  border-radius: 13px;
+  padding: 16px 24px;
+  font-family: inherit;
+  font-size: 15.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.disclaimer {
+  margin-top: 30px;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #8A9D97;
+  border-top: 1px solid #E1EAE7;
+  padding-top: 18px;
+}

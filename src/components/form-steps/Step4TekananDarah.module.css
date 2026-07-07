@@ -1,0 +1,112 @@
+.title {
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #6B817A;
+  margin-top: 5px;
+}
+
+.infoBox {
+  margin-top: 16px;
+  background: #F2F7F6;
+  border: 1px solid #DCEAE6;
+  border-radius: 12px;
+  padding: 13px 15px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #4B635C;
+}
+
+.infoStrong {
+  color: #16312B;
+}
+
+.example {
+  margin-top: 7px;
+}
+
+.exampleValue {
+  color: #0F766E;
+}
+
+.row {
+  display: flex;
+  gap: 14px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+.col {
+  flex: 1;
+  min-width: 120px;
+}
+
+.labelHint {
+  text-transform: none;
+  letter-spacing: 0;
+  color: #9AABA5;
+}
+
+.inputWrap {
+  position: relative;
+}
+
+.bpInput {
+  padding: 13px 58px 13px 14px;
+}
+
+.unit {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: #9AABA5;
+}
+
+.dateSection {
+  margin-top: 18px;
+}
+
+.dateInput {
+  padding: 12px 14px;
+  font-size: 15px;
+}
+
+.confidence {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #F7FAF9;
+  border: 1px solid #E4EDEA;
+  border-radius: 11px;
+  padding: 12px 14px;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 99px;
+  flex: none;
+}
+
+.confidenceText {
+  font-size: 13px;
+  color: #4B635C;
+}
+
+.confidenceStrong {
+  color: #16312B;
+}
+
+.cat {
+  margin-left: auto;
+  font-size: 13px;
+  font-weight: 700;
+}

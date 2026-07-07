@@ -1,0 +1,123 @@
+.title {
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #6B817A;
+  margin-top: 5px;
+}
+
+.row {
+  display: flex;
+  gap: 14px;
+  margin-top: 22px;
+  flex-wrap: wrap;
+}
+
+.col {
+  flex: 1;
+  min-width: 140px;
+}
+
+.inputWrap {
+  position: relative;
+}
+
+.tinggiInput {
+  padding: 13px 52px 13px 14px;
+}
+
+.beratInput {
+  padding: 13px 46px 13px 14px;
+}
+
+.unit {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: #9AABA5;
+}
+
+.bmiCard {
+  margin-top: 22px;
+  background: #F7FAF9;
+  border: 1px solid #E4EDEA;
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.bmiHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.bmiKicker {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7C9088;
+}
+
+.bmiValue {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-top: 5px;
+}
+
+.bmiBadge {
+  font-size: 13.5px;
+  font-weight: 700;
+  padding: 7px 14px;
+  border-radius: 99px;
+  color: #fff;
+}
+
+.bmiTrack {
+  position: relative;
+  margin-top: 18px;
+  height: 8px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #E0A93B 0 17.5%, #2FAE6B 17.5% 50%, #E0A93B 50% 75%, #D9645A 75% 100%);
+}
+
+.bmiMarker {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 18px;
+  background: #fff;
+  border: 2px solid #16312B;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+.bmiLegend {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 7px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: #9AABA5;
+}
+
+.emptyCard {
+  margin-top: 22px;
+  background: #F7FAF9;
+  border: 1px dashed #D5E0DC;
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+  font-size: 13.5px;
+  color: #8A9D97;
+}
