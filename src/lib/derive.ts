@@ -167,9 +167,6 @@ export function derive(d: FormData) {
     } else if (sys >= 120 && dia < 80) {
       bpCat = "Prahipertensi";
       bpColor = "#C77A0A";
-    } else if (sys < 120 && dia < 80) {
-      bpCat = "Normal";
-      bpColor = "#1A8754";
     } else if (sys < 90 || dia < 60) {
       bpCat = "Hipotensi";
       bpColor = "#9AABA5";
