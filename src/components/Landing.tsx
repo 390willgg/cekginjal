@@ -48,6 +48,16 @@ export function Landing({
       <h1 className={styles.title}>
         Skrining Risiko Penyakit Ginjal Kronis
       </h1>
+      <div className={styles.infoBox}>
+        <div className={styles.infoIcon}>⚠️</div>
+        <div className={styles.infoText}>
+          <b>Apa itu CKD?</b> Penyakit Ginjal Kronis (Chronic Kidney Disease)
+          adalah penurunan fungsi ginjal secara bertahap. CKD dijuluki{" "}
+          <b className={styles.infoStrong}>"silent killer"</b> karena
+          gejalanya sering baru terasa setelah kerusakan ginjal sudah parah —
+          skrining rutin adalah cara utama mendeteksinya sejak dini.
+        </div>
+      </div>
       <p className={styles.subtitle}>
         Catat data antropometri, gula darah, tekanan darah, dan riwayat penyakit
         pasien. Sistem menghitung estimasi risiko CKD beserta{" "}
