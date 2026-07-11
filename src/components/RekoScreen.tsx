@@ -8,11 +8,13 @@ export function RekoScreen({
   onProvinsi,
   onOpenRs,
   onOpenArticle,
+  onOpenChat,
 }: {
   provinsi: string;
   onProvinsi: (p: string) => void;
   onOpenRs: (id: number) => void;
   onOpenArticle: (id: number) => void;
+  onOpenChat: () => void;
 }) {
   const reko = useMemo(() => buildReko(provinsi), [provinsi]);
   const chip = (active: boolean) =>
@@ -84,6 +86,20 @@ export function RekoScreen({
             </p>
           </>
         )}
+      </div>
+
+      <div onClick={onOpenChat} className={styles.chatCta}>
+        <div className={styles.chatCtaIcon}>✦</div>
+        <div className={styles.chatCtaBody}>
+          <div className={styles.chatCtaKicker}>Edukasi Kesehatan Ginjal</div>
+          <div className={styles.chatCtaTitle}>
+            Tanya AI soal ginjal, diet, gejala CKD
+          </div>
+          <div className={styles.chatCtaSub}>
+            Chat langsung untuk edukasi yang sesuai pertanyaan Anda
+          </div>
+        </div>
+        <div className={styles.chatCtaArrow}>→</div>
       </div>
 
       <div className={styles.articleSection}>

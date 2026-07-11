@@ -149,6 +149,54 @@
   white-space: pre-line;
 }
 
+.chatCta {
+  margin-top: 14px;
+  background: linear-gradient(135deg, #0F766E, #134E4A);
+  border-radius: 16px;
+  padding: 18px 20px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.chatCtaIcon {
+  width: 38px;
+  height: 38px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  font-size: 17px;
+}
+
+.chatCtaBody {
+  flex: 1;
+}
+
+.chatCtaKicker {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #A8D6CF;
+  font-weight: 600;
+}
+
+.chatCtaTitle {
+  font-size: 15px;
+  font-weight: 800;
+  margin-top: 3px;
+}
+
+.chatCtaArrow {
+  font-size: 18px;
+  flex: none;
+}
+
 .kidneyAgeRow {
   display: flex;
   align-items: center;

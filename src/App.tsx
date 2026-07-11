@@ -127,7 +127,7 @@ export default function App() {
             <FormScreen data={data} step={step} onField={onField} onPick={onPick} onNext={onNext} onPrev={onPrev} />
           )}
           {screen === 'result' && (
-            <ResultScreen data={data} provinsi={provinsi} onSave={saveResult} onStart={goStart} onOpenRs={setOpenRsId} onOpenArticle={setOpenArticleId} />
+            <ResultScreen data={data} provinsi={provinsi} onSave={saveResult} onStart={goStart} onOpenRs={setOpenRsId} onOpenArticle={setOpenArticleId} onOpenChat={() => setChatOpen(true)} />
           )}
           {screen === 'history' && (
             <HistoryScreen
@@ -138,7 +138,7 @@ export default function App() {
             />
           )}
           {screen === 'reko' && (
-            <RekoScreen provinsi={provinsi} onProvinsi={onProvinsi} onOpenRs={setOpenRsId} onOpenArticle={setOpenArticleId} />
+            <RekoScreen provinsi={provinsi} onProvinsi={onProvinsi} onOpenRs={setOpenRsId} onOpenArticle={setOpenArticleId} onOpenChat={() => setChatOpen(true)} />
           )}
         </motion.div>
       </AnimatePresence>

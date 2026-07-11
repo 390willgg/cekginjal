@@ -29,6 +29,61 @@
   max-width: 56ch;
 }
 
+.chatCta {
+  margin-top: 30px;
+  background: linear-gradient(135deg, #0F766E, #134E4A);
+  border-radius: 18px;
+  padding: 22px 24px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 8px 22px rgba(15, 118, 110, 0.25);
+}
+
+.chatCtaIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  font-size: 20px;
+}
+
+.chatCtaBody {
+  flex: 1;
+}
+
+.chatCtaKicker {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #A8D6CF;
+  font-weight: 600;
+}
+
+.chatCtaTitle {
+  font-size: 17px;
+  font-weight: 800;
+  margin-top: 4px;
+}
+
+.chatCtaSub {
+  font-size: 13px;
+  color: #D6ECE8;
+  margin-top: 4px;
+}
+
+.chatCtaArrow {
+  font-size: 22px;
+  flex: none;
+}
+
 .provinsiSection {
   margin-top: 20px;
 }

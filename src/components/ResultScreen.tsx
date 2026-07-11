@@ -11,6 +11,7 @@ export function ResultScreen({
   onStart,
   onOpenRs,
   onOpenArticle,
+  onOpenChat,
 }: {
   data: FormData;
   provinsi: string;
@@ -18,6 +19,7 @@ export function ResultScreen({
   onStart: () => void;
   onOpenRs: (id: number) => void;
   onOpenArticle: (id: number) => void;
+  onOpenChat: () => void;
 }) {
   const der = derive(data);
   const reko = useMemo(() => buildReko(provinsi), [provinsi]);
@@ -261,6 +263,17 @@ export function ResultScreen({
             </div>
           ))}
         </AutoCarousel>
+      </div>
+
+      <div onClick={onOpenChat} className={styles.chatCta}>
+        <div className={styles.chatCtaIcon}>✦</div>
+        <div className={styles.chatCtaBody}>
+          <div className={styles.chatCtaKicker}>Edukasi Kesehatan Ginjal</div>
+          <div className={styles.chatCtaTitle}>
+            Tanya AI soal hasil skrining Anda
+          </div>
+        </div>
+        <div className={styles.chatCtaArrow}>→</div>
       </div>
 
       <p className={styles.footerNote}>
