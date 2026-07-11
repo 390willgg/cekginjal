@@ -1,6 +1,5 @@
 import type { FormData, RsItem } from "../types";
 import { PROVINCES, RS_DATA } from "../data/rsData";
-import { ARTICLES_DATA } from "../data/articlesData";
 
 export { PROVINCES };
 
@@ -55,14 +54,13 @@ function shuffleArr<T>(arr: T[]): T[] {
 }
 
 export function buildReko(provinsi: string) {
-  const articlePool = provinsi ? ARTICLES_DATA : shuffleArr(ARTICLES_DATA);
   const rekoSubtitle = provinsi
     ? `Cari Puskesmas/FKTP terdekat atau paket MCU ginjal bersubsidi sesuai domisili Anda (${provinsi}) di bawah ini.`
     : "Pilih provinsi Anda untuk melihat rekomendasi paket MCU ginjal yang sesuai domisili.";
   const rsList: RsItem[] = provinsi
     ? RS_DATA.filter((r) => r.provinsi === provinsi)
     : shuffleArr(RS_DATA);
-  return { articleCards: articlePool.slice(0, 6), rekoSubtitle, rsList };
+  return { rekoSubtitle, rsList };
 }
 
 function validity(dateStr: string) {

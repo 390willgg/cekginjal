@@ -7,13 +7,11 @@ export function RekoScreen({
   provinsi,
   onProvinsi,
   onOpenRs,
-  onOpenArticle,
   onOpenChat,
 }: {
   provinsi: string;
   onProvinsi: (p: string) => void;
   onOpenRs: (id: number) => void;
-  onOpenArticle: (id: number) => void;
   onOpenChat: () => void;
 }) {
   const reko = useMemo(() => buildReko(provinsi), [provinsi]);
@@ -100,24 +98,6 @@ export function RekoScreen({
           </div>
         </div>
         <div className={styles.chatCtaArrow}>→</div>
-      </div>
-
-      <div className={styles.articleSection}>
-        <div className={styles.sectionTitle}>Edukasi Kesehatan Ginjal</div>
-        <AutoCarousel>
-          {reko.articleCards.map((a) => (
-            <div
-              key={a.id}
-              onClick={() => onOpenArticle(a.id)}
-              className={styles.articleCard}
-            >
-              <div className={styles.articleTopik}>{a.topik}</div>
-              <div className={styles.articleJudul}>{a.judul}</div>
-              <div className={styles.articleRingkasan}>{a.ringkasan}</div>
-              <div className={styles.articleCta}>Baca selengkapnya →</div>
-            </div>
-          ))}
-        </AutoCarousel>
       </div>
 
       <p className={styles.disclaimer}>

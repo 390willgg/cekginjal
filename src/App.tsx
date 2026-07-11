@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { supabase, getDeviceId } from './supabase'
 import type { Screen, FormData, HistoryItem, ChatMessage } from './types'
-import { blank, fmtDate, derive, CHAT_FALLBACK_REPLY, CHAT_GREETING } from './lib/derive'
+import { blank, fmtDate, derive, CHAT_GREETING } from './lib/derive'
+import { findChatReply } from './lib/chat'
 import { RS_DATA } from './data/rsData'
-import { ARTICLES_DATA } from './data/articlesData'
 import { TopBar } from './components/TopBar'
 import { Landing } from './components/Landing'
 import { FormScreen } from './components/FormScreen'
@@ -12,7 +12,6 @@ import { ResultScreen } from './components/ResultScreen'
 import { HistoryScreen } from './components/HistoryScreen'
 import { RekoScreen } from './components/RekoScreen'
 import { RsModal } from './components/RsModal'
-import { ArticleModal } from './components/ArticleModal'
 import { ChatWidget } from './components/ChatWidget'
 import styles from './App.module.css'
 
@@ -22,7 +21,6 @@ export default function App() {
   const [data, setData] = useState<FormData>(blank())
   const [history, setHistory] = useState<HistoryItem[]>([])
   const [provinsi, setProvinsi] = useState('')
-  const [openArticleId, setOpenArticleId] = useState<number | null>(null)
   const [openRsId, setOpenRsId] = useState<number | null>(null)
   const [chatOpen, setChatOpen] = useState(false)
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
@@ -108,7 +106,7 @@ export default function App() {
   }
 
   function sendChat(text: string) {
-    setChatMessages(m => [...m, { role: 'user', text }, { role: 'assistant', text: CHAT_FALLBACK_REPLY }])
+    setChatMessages(m => [...m, { role: 'user', text }, { role: 'assistant', text: findChatReply(text) }])
   }
 
   return (
@@ -127,7 +125,7 @@ export default function App() {
             <FormScreen data={data} step={step} onField={onField} onPick={onPick} onNext={onNext} onPrev={onPrev} />
           )}
           {screen === 'result' && (
-            <ResultScreen data={data} provinsi={provinsi} onSave={saveResult} onStart={goStart} onOpenRs={setOpenRsId} onOpenArticle={setOpenArticleId} onOpenChat={() => setChatOpen(true)} />
+            <ResultScreen data={data} provinsi={provinsi} onSave={saveResult} onStart={goStart} onOpenRs={setOpenRsId} onOpenChat={() => setChatOpen(true)} />
           )}
           {screen === 'history' && (
             <HistoryScreen
@@ -138,7 +136,7 @@ export default function App() {
             />
           )}
           {screen === 'reko' && (
-            <RekoScreen provinsi={provinsi} onProvinsi={onProvinsi} onOpenRs={setOpenRsId} onOpenArticle={setOpenArticleId} onOpenChat={() => setChatOpen(true)} />
+            <RekoScreen provinsi={provinsi} onProvinsi={onProvinsi} onOpenRs={setOpenRsId} onOpenChat={() => setChatOpen(true)} />
           )}
         </motion.div>
       </AnimatePresence>
@@ -146,10 +144,6 @@ export default function App() {
         {openRsId !== null && (() => {
           const rs = RS_DATA.find(r => r.id === openRsId)
           return rs ? <RsModal rs={rs} onClose={() => setOpenRsId(null)} /> : null
-        })()}
-        {openArticleId !== null && (() => {
-          const article = ARTICLES_DATA.find(a => a.id === openArticleId)
-          return article ? <ArticleModal article={article} onClose={() => setOpenArticleId(null)} /> : null
         })()}
       </AnimatePresence>
       <ChatWidget open={chatOpen} onToggle={() => setChatOpen(o => !o)} messages={chatMessages} onSend={sendChat} />

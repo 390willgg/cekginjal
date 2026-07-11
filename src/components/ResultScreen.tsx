@@ -10,7 +10,6 @@ export function ResultScreen({
   onSave,
   onStart,
   onOpenRs,
-  onOpenArticle,
   onOpenChat,
 }: {
   data: FormData;
@@ -18,7 +17,6 @@ export function ResultScreen({
   onSave: () => void;
   onStart: () => void;
   onOpenRs: (id: number) => void;
-  onOpenArticle: (id: number) => void;
   onOpenChat: () => void;
 }) {
   const der = derive(data);
@@ -242,24 +240,6 @@ export function ResultScreen({
               <div className={styles.mcuNama}>{r.nama}</div>
               <div className={styles.mcuPaket}>{r.paket}</div>
               <div className={styles.mcuCta}>Lihat detail →</div>
-            </div>
-          ))}
-        </AutoCarousel>
-      </div>
-
-      {/* shortcut: articles */}
-      <div className={styles.shortcutSectionSpaced}>
-        <div className={styles.shortcutTitle}>Edukasi Kesehatan Ginjal</div>
-        <AutoCarousel>
-          {reko.articleCards.slice(0, 4).map((a) => (
-            <div
-              key={a.id}
-              onClick={() => onOpenArticle(a.id)}
-              className={styles.articleCard}
-            >
-              <div className={styles.articleTopik}>{a.topik}</div>
-              <div className={styles.articleJudul}>{a.judul}</div>
-              <div className={styles.articleCta}>Baca selengkapnya →</div>
             </div>
           ))}
         </AutoCarousel>
