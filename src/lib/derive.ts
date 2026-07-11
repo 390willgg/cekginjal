@@ -366,6 +366,11 @@ export function derive(d: FormData) {
   if (d.diabetes) riw.push(d.dmType === "tipe1" ? "DM Tipe 1" : "DM Tipe 2");
   if (d.hipertensi) riw.push("Hipertensi");
   const riwayatLabel = riw.length ? riw.join(" · ") : "Tanpa riwayat";
+  const topFactors = f
+    .slice()
+    .sort((a, b) => b.pts - a.pts)
+    .slice(0, 2)
+    .map((x) => x.label);
 
   return {
     bmiShow,
@@ -403,5 +408,23 @@ export function derive(d: FormData) {
     edukasi,
     rUmur,
     riwayatLabel,
+    topFactors,
   };
 }
+
+export function fallbackExplanation(der: ReturnType<typeof derive>) {
+  const factorsText = der.topFactors.length
+    ? der.topFactors.join(", ")
+    : "tidak ada faktor mayor yang menonjol";
+  const saran =
+    der.riskCat === "Tinggi"
+      ? "Disarankan segera berkonsultasi dengan tenaga kesehatan dan melakukan pemeriksaan eGFR serta UACR."
+      : "Disarankan tetap menjaga pola hidup sehat dan melakukan skrining ulang secara berkala.";
+  return `Berdasarkan data yang Anda masukkan, Anda termasuk dalam kategori risiko ${der.riskCat.toLowerCase()} (${der.riskPct}%). Faktor yang paling berkontribusi: ${factorsText}. ${saran}`;
+}
+
+export const CHAT_FALLBACK_REPLY =
+  "Maaf, asisten AI sedang tidak tersedia. Untuk pertanyaan seputar gejala atau kondisi Anda, silakan konsultasikan langsung ke Puskesmas atau tenaga kesehatan terdekat.";
+
+export const CHAT_GREETING =
+  "Halo! Saya di sini untuk bantu jawab pertanyaan seputar kesehatan ginjal, diet, atau gejala CKD. Ada yang ingin ditanyakan?";

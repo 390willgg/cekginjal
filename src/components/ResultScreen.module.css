@@ -105,6 +105,50 @@
   padding: 20px;
 }
 
+.aiCard {
+  margin-top: 14px;
+  background: #fff;
+  border: 1.5px solid #0F766E;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.aiHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.aiIcon {
+  width: 22px;
+  height: 22px;
+  border-radius: 99px;
+  background: #0F766E;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  font-size: 11px;
+}
+
+.aiKicker {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #0F766E;
+  font-weight: 700;
+}
+
+.aiText {
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #2C443E;
+  white-space: pre-line;
+}
+
 .kidneyAgeRow {
   display: flex;
   align-items: center;

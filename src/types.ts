@@ -48,6 +48,11 @@ export interface RsItem {
   promo: string;
 }
 
+export interface ChatMessage {
+  role: "user" | "assistant";
+  text: string;
+}
+
 export interface ArticleItem {
   id: number;
   topik: string;

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { supabase, getDeviceId } from './supabase'
-import type { Screen, FormData, HistoryItem } from './types'
-import { blank, fmtDate, derive } from './lib/derive'
+import type { Screen, FormData, HistoryItem, ChatMessage } from './types'
+import { blank, fmtDate, derive, CHAT_FALLBACK_REPLY, CHAT_GREETING } from './lib/derive'
 import { RS_DATA } from './data/rsData'
 import { ARTICLES_DATA } from './data/articlesData'
 import { TopBar } from './components/TopBar'
@@ -13,6 +13,7 @@ import { HistoryScreen } from './components/HistoryScreen'
 import { RekoScreen } from './components/RekoScreen'
 import { RsModal } from './components/RsModal'
 import { ArticleModal } from './components/ArticleModal'
+import { ChatWidget } from './components/ChatWidget'
 import styles from './App.module.css'
 
 export default function App() {
@@ -23,6 +24,10 @@ export default function App() {
   const [provinsi, setProvinsi] = useState('')
   const [openArticleId, setOpenArticleId] = useState<number | null>(null)
   const [openRsId, setOpenRsId] = useState<number | null>(null)
+  const [chatOpen, setChatOpen] = useState(false)
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
+    { role: 'assistant', text: CHAT_GREETING },
+  ])
 
   useEffect(() => {
     try {
@@ -102,6 +107,10 @@ export default function App() {
     setScreen('history')
   }
 
+  function sendChat(text: string) {
+    setChatMessages(m => [...m, { role: 'user', text }, { role: 'assistant', text: CHAT_FALLBACK_REPLY }])
+  }
+
   return (
     <div className={styles.app}>
       <TopBar onHome={() => setScreen('landing')} onReko={() => setScreen('reko')} onHistory={() => setScreen('history')} />
@@ -143,6 +152,7 @@ export default function App() {
           return article ? <ArticleModal article={article} onClose={() => setOpenArticleId(null)} /> : null
         })()}
       </AnimatePresence>
+      <ChatWidget open={chatOpen} onToggle={() => setChatOpen(o => !o)} messages={chatMessages} onSend={sendChat} />
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import type { FormData } from "../types";
-import { derive, buildReko, fmtDate } from "../lib/derive";
+import { derive, buildReko, fmtDate, fallbackExplanation } from "../lib/derive";
 import { AutoCarousel } from "./AutoCarousel";
 import styles from "./ResultScreen.module.css";
 
@@ -98,6 +98,15 @@ export function ResultScreen({
           </div>
         </div>
       )}
+
+      {/* AI narrative */}
+      <div className={styles.aiCard}>
+        <div className={styles.aiHeader}>
+          <div className={styles.aiIcon}>✦</div>
+          <div className={styles.aiKicker}>Penjelasan oleh AI</div>
+        </div>
+        <div className={styles.aiText}>{fallbackExplanation(der)}</div>
+      </div>
 
       {/* confidence */}
       <div className={styles.card}>
